@@ -13,7 +13,7 @@ public class Graph {
 	}
 
 	public int getDistance(Node a, Node b) {
-
+		return 0;
 	}
 
 	public Node[] getNeighbors(Node a) {
@@ -27,7 +27,7 @@ public class Graph {
 	}
 
 	public int getLength() {
-
+		return 0;
 	}
 
 	public String getNodeName(Node a){
