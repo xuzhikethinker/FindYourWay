@@ -1,5 +1,6 @@
 package algorithm;
 
+import graph.Graph;
 import graph.Node;
 
 public class DijkstraAlgorithm implements IAlgorithm {
@@ -22,6 +23,12 @@ public class DijkstraAlgorithm implements IAlgorithm {
 	public Node[] getResult() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void setGraph(Graph graph) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
