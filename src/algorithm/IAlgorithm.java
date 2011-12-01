@@ -25,9 +25,8 @@ public interface IAlgorithm {
 	
 	/**
 	 * Führt den Algorithmus aus.
-	 * @throws Exception
 	 */
-	void run() throws Exception;
+	void run();
 	
 	/**
 	 * Gibt Punkte in ermittelter Reihenfolge zurück
