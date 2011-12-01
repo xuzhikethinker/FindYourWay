@@ -13,7 +13,7 @@ public class DijkstraAlgorithm implements IAlgorithm {
 	}
 
 	@Override
-	public void start() {
+	public void run() {
 		// TODO Auto-generated method stub
 		
 	}
