@@ -1,5 +1,6 @@
 package gui;
 
+import gui.IUserinterface;
 import algorithm.DijkstraAlgorithm;
 
 public class Main {
@@ -9,10 +10,14 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
-		DijkstraAlgorithm da = new DijkstraAlgorithm();
-		GUI gui = new GUI();
-		
-		gui.setAlgorithm(da);
+		// GUI soll als UI genutzt werden
+		IUserinterface ui = new GUI();
+
+		// Programierer legt Algorithmus fest
+		ui.setAlgorithm(new DijkstraAlgorithm());
+
+		// UI ausführen
+		ui.run();
 
 	}
 
