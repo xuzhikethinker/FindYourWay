@@ -1,6 +1,6 @@
 package algorithm;
 
-import graph.Graph;
+import graph.IGraph;
 import graph.Node;
 
 public interface IAlgorithm {
@@ -9,7 +9,7 @@ public interface IAlgorithm {
 	 * Setzt die Punktedaten.
 	 * @param graph
 	 */
-	void setGraph(Graph graph);
+	void setGraph(IGraph graph);
 	
 	/**
 	 * Setzt den Startpunkt.
