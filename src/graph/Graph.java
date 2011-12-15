@@ -1,12 +1,14 @@
 
 package graph;
 
+import java.io.FileNotFoundException;
+
 public class Graph implements IGraph {
 	
 	private int matrix[][];
 	private String names[];
 	
-	public Graph(String file) {
+	public Graph(String file) throws FileNotFoundException {
 		// TODO Aus Datei einlesen
 		
 		// Beispieldatensatz, Hardcoded
