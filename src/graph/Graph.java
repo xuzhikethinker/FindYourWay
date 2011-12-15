@@ -3,8 +3,8 @@ package graph;
 
 public class Graph implements IGraph {
 	
-	int matrix[][];
-	String names[];
+	private int matrix[][];
+	private String names[];
 	
 	public Graph(String file) {
 		// TODO Aus Datei einlesen
