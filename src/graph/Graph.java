@@ -22,9 +22,10 @@ public class Graph implements IGraph {
 		this.setDistance(2, 5, 2); // 3 zu 6
 		this.setDistance(3, 4, 6); // 4 zu 5
 		this.setDistance(5, 5, 9); // 5 zu 6
-		names[0]="Gießen";
-		names[1]="Frankfurt";
-		names[2]="Wallau";
+		
+		this.setNodeName(0, "Gießen");
+		this.setNodeName(1, "Frankfurt");
+		this.setNodeName(2, "Wallau");
 	}
 
 	public Graph(int length) {
@@ -75,6 +76,11 @@ public class Graph implements IGraph {
 		return names[a];
 	}
 
+	@Override
+	public void setNodeName(int a, String n) {
+		this.names[a]=n;
+	}
+	
 	@Override
 	public void setLength(int length) {
 		matrix=new int[length][length];

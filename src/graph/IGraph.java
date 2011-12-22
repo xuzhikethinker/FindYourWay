@@ -37,6 +37,14 @@ public interface IGraph {
 	String getNodeName(int a);
 
 	/**
+	 * Setzt "Namen" eines Knotens.
+	 * @param a Knoten
+	 * @param n Name
+	 * @return 
+	 */
+	void setNodeName(int a, String n);
+	
+	/**
 	 * Setzt Anzahl der Knoten des Graphens.
 	 * @param length Anzahl
 	 * @post Daten eines vorherigen Graphens werden gelöscht.
