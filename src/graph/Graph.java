@@ -13,15 +13,15 @@ public class Graph implements IGraph {
 		
 		// Beispieldatensatz, Hardcoded
 		this.setLength(6);
-		this.setDistance(new Node(0), new Node(1), 7); // 1 zu 2
-		this.setDistance(new Node(0), new Node(2), 9); // 1 zu 3
-		this.setDistance(new Node(0), new Node(5), 14); // 1 zu 3
-		this.setDistance(new Node(1), new Node(2), 10); // 2 zu 3
-		this.setDistance(new Node(1), new Node(4), 15); // 2 zu 4
-		this.setDistance(new Node(2), new Node(3), 11); // 3 zu 4
-		this.setDistance(new Node(2), new Node(5), 2); // 3 zu 6
-		this.setDistance(new Node(3), new Node(4), 6); // 4 zu 5
-		this.setDistance(new Node(5), new Node(5), 9); // 5 zu 6
+		this.setDistance(0, 1, 7); // 1 zu 2
+		this.setDistance(0, 2, 9); // 1 zu 3
+		this.setDistance(0, 5, 14); // 1 zu 3
+		this.setDistance(1, 2, 10); // 2 zu 3
+		this.setDistance(1, 4, 15); // 2 zu 4
+		this.setDistance(2, 3, 11); // 3 zu 4
+		this.setDistance(2, 5, 2); // 3 zu 6
+		this.setDistance(3, 4, 6); // 4 zu 5
+		this.setDistance(5, 5, 9); // 5 zu 6
 		names[0]="Gießen";
 		names[1]="Frankfurt";
 		names[2]="Wallau";
@@ -32,22 +32,22 @@ public class Graph implements IGraph {
 	}
 
 	@Override
-	public int getDistance(Node a, Node b) {
-		return matrix[a.getIndex()][b.getIndex()];
+	public int getDistance(int a, int b) {
+		return matrix[a][b];
 	}
 
 	@Override
-	public Node[] getNeighbors(Node a) {
-		Node neighborsTmp[]=new Node[matrix.length];
+	public int[] getNeighbors(int a) {
+		int neighborsTmp[]=new int[matrix.length];
 		int j=0;
 		for(int i=0; i<matrix.length; i++){
-			if(matrix[a.getIndex()][i]>0){
-				neighborsTmp[j]=new Node(i);
+			if(matrix[a][i]>0){
+				neighborsTmp[j]=i;
 				j++;
 			}
 		}
 		
-		Node neighbors[]=new Node[j];
+		int neighbors[]=new int[j];
 		for(int i=0; i<neighborsTmp.length; i++){
 			neighbors[i]=neighborsTmp[i];
 		}
@@ -56,11 +56,11 @@ public class Graph implements IGraph {
 	}
 
 	@Override
-	public Node[] getAllNodes() {
-		Node node[]=new Node[matrix.length];
+	public int[] getAllNodes() {
+		int node[]=new int[matrix.length];
 
 		for(int i=0; i<matrix.length; i++){
-				node[i]=new Node(i);
+				node[i]=i;
 		}
 		return node;
 	}
@@ -71,8 +71,8 @@ public class Graph implements IGraph {
 	}
 
 	@Override
-	public String getNodeName(Node a) {
-		return names[a.getIndex()];
+	public String getNodeName(int a) {
+		return names[a];
 	}
 
 	@Override
@@ -82,9 +82,9 @@ public class Graph implements IGraph {
 	}
 
 	@Override
-	public void setDistance(Node a, Node b, int dist) {
-		matrix[a.getIndex()][b.getIndex()]=dist;
-		matrix[b.getIndex()][a.getIndex()]=dist;
+	public void setDistance(int a, int b, int dist) {
+		matrix[a][b]=dist;
+		matrix[b][a]=dist;
 	}
 	
 

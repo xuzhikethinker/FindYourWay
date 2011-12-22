@@ -8,20 +8,20 @@ public interface IGraph {
 	 * @param b Knoten 2
 	 * @return Distanz
 	 */
-	int getDistance(Node a, Node b);
+	int getDistance(int a, int b);
 
 	/**
 	 * Liefert alle Nachbarn eines Knotens.
 	 * @param a Knoten
 	 * @return Alle Nachbarn von a
 	 */
-	Node[] getNeighbors(Node a);
+	int[] getNeighbors(int a);
 
 	/**
 	 * Liefert alle vorhandene Knoten.
 	 * @return Die Knoten
 	 */
-	Node[] getAllNodes();
+	int[] getAllNodes();
 
 	/**
 	 * Liefert Anzahl der Knoten des Graphens.
@@ -34,7 +34,7 @@ public interface IGraph {
 	 * @param a Knoten
 	 * @return Knotennamen
 	 */
-	String getNodeName(Node a);
+	String getNodeName(int a);
 
 	/**
 	 * Setzt Anzahl der Knoten des Graphens.
@@ -49,5 +49,5 @@ public interface IGraph {
 	 * @param b Knoten 2
 	 * @param dist Distanzwert
 	 */
-	void setDistance(Node a, Node b, int dist);
+	void setDistance(int a, int b, int dist);
 }

@@ -18,13 +18,13 @@ public class GraphTest {
 			fail("Datei nicht vorhanden");
 			return;
 		}
-		assertEquals(11, g.getDistance(new Node(2), new Node(3)));
+		assertEquals(11, g.getDistance(2, 3));
 
-		g.setDistance(new Node(3), new Node(2), 20);
+		g.setDistance(3, 2, 20);
 
-		assertEquals(20, g.getDistance(new Node(2), new Node(3)));
+		assertEquals(20, g.getDistance(2, 3));
 
-		assertEquals("Wallau", g.getNodeName(new Node(2)));
+		assertEquals("Wallau", g.getNodeName(2));
 	}
 
 }

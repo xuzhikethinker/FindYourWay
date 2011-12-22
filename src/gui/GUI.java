@@ -3,7 +3,6 @@ package gui;
 import java.io.FileNotFoundException;
 
 import graph.Graph;
-import graph.Node;
 import algorithm.IAlgorithm;
 
 public class GUI implements IUserinterface {
@@ -27,8 +26,8 @@ public class GUI implements IUserinterface {
 			// Datei nicht vorhanden?
 		}
 
-		this.algorithm.setStartNode(new Node(10)); // ID von Berlin
-		this.algorithm.setEndNode(new Node(12)); // ID von M�nchen
+		this.algorithm.setStartNode(10); // ID von Berlin
+		this.algorithm.setEndNode(12); // ID von M�nchen
 
 		// Algorithmus laufen lassen
 		try {
@@ -36,7 +35,7 @@ public class GUI implements IUserinterface {
 		} catch (Exception e) {
 			// Fehlerbehandlung
 		}
-		Node result[] = this.algorithm.getResult();
+		int result[] = this.algorithm.getResult();
 
 		System.out.println("Ergebnis: " + result);
 

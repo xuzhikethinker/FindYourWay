@@ -1,16 +1,14 @@
 package algorithm;
 
-import graph.Node;
-
 public class AlgNode {
-	private Node Knoten;
+	private int Knoten;
 	private int Distanz;
-	private Node Vorgaenger;
+	private int Vorgaenger;
 	
 
-	 AlgNode(Node node, boolean Startnode) {
+	 AlgNode(int node, boolean Startnode) {
 		this.Knoten=node;
-		this.Vorgaenger = null;
+		this.Vorgaenger = -1;
 		if (!Startnode) {
 			this.Distanz = -1;
 		} else {
@@ -24,13 +22,13 @@ public class AlgNode {
 	int getDistanz(){
 		return this.Distanz;
 	}
-	void setVorgaenger(Node node){
+	void setVorgaenger(int node){
 		this.Vorgaenger=node;
 	}
-	Node getVorgeaenger(){
+	int getVorgeaenger(){
 		return this.Vorgaenger;
 	}
-	Node getKnoten(){
+	int getKnoten(){
 		return this.Knoten;
 	}
 

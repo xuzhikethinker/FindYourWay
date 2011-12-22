@@ -1,7 +1,6 @@
 package algorithm;
 
 import graph.IGraph;
-import graph.Node;
 
 public interface IAlgorithm {
 	
@@ -15,13 +14,13 @@ public interface IAlgorithm {
 	 * Setzt den Startpunkt.
 	 * @param node
 	 */
-	void setStartNode(Node node);
+	void setStartNode(int node);
 	
 	/**
 	 * Setzt den Endpunkt.
 	 * @param node
 	 */
-	void setEndNode(Node node);
+	void setEndNode(int node);
 	
 	/**
 	 * Führt den Algorithmus aus.
@@ -32,5 +31,5 @@ public interface IAlgorithm {
 	 * Gibt Punkte in ermittelter Reihenfolge zurück
 	 * @return
 	 */
-	Node[] getResult();
+	int[] getResult();
 }
