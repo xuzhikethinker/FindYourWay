@@ -12,20 +12,20 @@ public class Graph implements IGraph {
 		// TODO Aus Datei einlesen
 		
 		// Beispieldatensatz, Hardcoded
-		this.setLength(6);
-		this.setDistance(0, 1, 7); // 1 zu 2
-		this.setDistance(0, 2, 9); // 1 zu 3
-		this.setDistance(0, 5, 14); // 1 zu 3
-		this.setDistance(1, 2, 10); // 2 zu 3
-		this.setDistance(1, 4, 15); // 2 zu 4
-		this.setDistance(2, 3, 11); // 3 zu 4
-		this.setDistance(2, 5, 2); // 3 zu 6
-		this.setDistance(3, 4, 6); // 4 zu 5
-		this.setDistance(5, 5, 9); // 5 zu 6
+		this.setLength(7);
+		this.setDistance(1, 2, 7); // 1 zu 2
+		this.setDistance(1, 3, 9); // 1 zu 3
+		this.setDistance(1, 3, 14); // 1 zu 3
+		this.setDistance(2, 3, 10); // 2 zu 3
+		this.setDistance(2, 4, 15); // 2 zu 4
+		this.setDistance(3, 4, 11); // 3 zu 4
+		this.setDistance(3, 6, 2); // 3 zu 6
+		this.setDistance(4, 5, 6); // 4 zu 5
+		this.setDistance(5, 6, 9); // 5 zu 6
 		
-		this.setNodeName(0, "Gießen");
-		this.setNodeName(1, "Frankfurt");
-		this.setNodeName(2, "Wallau");
+		this.setNodeName(1, "Punkt 1");
+		this.setNodeName(2, "Punkt 2");
+		this.setNodeName(3, "Punkt 3");
 	}
 
 	public Graph(int length) {
@@ -49,7 +49,7 @@ public class Graph implements IGraph {
 		}
 		
 		int neighbors[]=new int[j];
-		for(int i=0; i<neighborsTmp.length; i++){
+		for(int i=0; i<neighbors.length; i++){
 			neighbors[i]=neighborsTmp[i];
 		}
 
