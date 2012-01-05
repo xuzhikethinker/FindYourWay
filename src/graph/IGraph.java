@@ -9,7 +9,7 @@ public interface IGraph {
 	 * @return Distanz
 	 */
 	int getDistance(int a, int b);
-
+	
 	/**
 	 * Liefert alle Nachbarn eines Knotens.
 	 * @param a Knoten

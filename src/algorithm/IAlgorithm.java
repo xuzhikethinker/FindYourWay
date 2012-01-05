@@ -32,4 +32,16 @@ public interface IAlgorithm {
 	 * @return
 	 */
 	int[] getResult();
+	
+	/**
+	 * Liefert Start-Knotens.
+	 * @return Start-Knoten
+	 */
+	int getStartNode();
+
+	/**
+	 * Liefert Ende-Knotens.
+	 * @return Ende-Knoten
+	 */
+	int getEndNode();
 }
