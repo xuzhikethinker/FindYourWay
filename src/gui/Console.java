@@ -29,7 +29,7 @@ public class Console implements IUserinterface {
 		boolean run = true;
 
 		do {
-			System.out.println("-- FindYourWay - Dijktra-Algorithmus --");
+			System.out.println("-- FindYourWay - Dijkstra-Algorithmus --");
 			if (graph != null) {
 				System.out.println("Startpunkt:"
 						+ this.algorithm.getStartNode());
@@ -62,6 +62,9 @@ public class Console implements IUserinterface {
 					System.out.print("Endpunkt: ");
 					int end = Integer.parseInt(scan.nextLine());
 					this.algorithm.setEndNode(end);
+					
+					// Da Daten geändert wurden
+					AlgRunned=false;
 				}
 				break;
 
