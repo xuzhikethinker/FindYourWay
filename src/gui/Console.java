@@ -31,11 +31,14 @@ public class Console implements IUserinterface {
 		do {
 			System.out.println("-- FindYourWay - Dijktra-Algorithmus --");
 			if (graph != null) {
-				System.out.println("Startpunkt:" + this.algorithm.getStartNode());
+				System.out.println("Startpunkt:"
+						+ this.algorithm.getStartNode());
 				System.out.println("Endpunkt: " + this.algorithm.getEndNode());
-				System.out.println("Anzahl der Städte: " + this.graph.getLength());
+				System.out.println("Anzahl der Städte: "
+						+ this.graph.getLength());
 			}
-			System.out.println("Algorithmus gelaufen: " + (AlgRunned ? "ja" : "nein"));
+			System.out.println("Algorithmus gelaufen: "
+					+ (AlgRunned ? "ja" : "nein"));
 			System.out.println();
 
 			System.out.print("Eingabe: ");
@@ -107,9 +110,9 @@ public class Console implements IUserinterface {
 					graph = new Graph("Deutschland-Metropole.xml");
 					this.algorithm.setGraph(graph);
 					System.out.println("Daten wurden geladen");
+					showMatrix();
 				} catch (FileNotFoundException e) {
 					// Datei nicht vorhanden?
-					return;
 				}
 				break;
 			}
@@ -126,6 +129,15 @@ public class Console implements IUserinterface {
 		System.out.println("Vorhandene Städte:");
 		for (int node : nodes) {
 			System.out.printf("%d: %s\n", node, graph.getNodeName(node));
+		}
+	}
+
+	private void showMatrix() {
+		for (int i = 0; i < this.graph.getLength(); i++) {
+			for (int j = 0; j < this.graph.getLength(); j++) {
+				System.out.printf("%02d ", this.graph.getDistance(i, j));
+			}
+			System.out.println();
 		}
 	}
 }
