@@ -10,13 +10,13 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 
-		// GUI soll als UI genutzt werden
-		IUserinterface ui = new GUI();
+		// Console soll als UI genutzt werden
+		IUserinterface ui = new Console();
 
 		// Programierer legt Algorithmus fest
 		ui.setAlgorithm(new DijkstraAlgorithm());
 
-		// UI ausf�hren
+		// UI ausführen
 		try {
 			ui.run();
 		} catch (Exception e) {
