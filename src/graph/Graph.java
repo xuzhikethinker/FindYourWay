@@ -94,6 +94,7 @@ public class Graph implements IGraph {
 
 	@Override
 	public void setDistance(int a, int b, int dist) {
+		// TODO Speicheroptimierung, nur halben Graphen verwenden und dann Node a >= Node b annehmen
 		matrix[a][b]=dist;
 		matrix[b][a]=dist;
 	}
