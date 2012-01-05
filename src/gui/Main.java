@@ -20,7 +20,7 @@ public class Main {
 		try {
 			ui.run();
 		} catch (Exception e) {
-			System.out.println("Fehler beim Ausführen der Oberfläche. "	+ e.getMessage());
+			System.err.println("Can not start user interface. " + e.toString());
 		}
 
 	}
