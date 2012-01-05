@@ -32,7 +32,7 @@ public class Console implements IUserinterface {
 			System.out.println("-- FindYourWay - Dijktra-Algorithmus --");
 			if (graph != null) {
 				System.out.println("Startpunkt:" + this.algorithm.getStartNode());
-				System.out.println("Endpunkt: " + this.algorithm.getStartNode());
+				System.out.println("Endpunkt: " + this.algorithm.getEndNode());
 				System.out.println("Anzahl der Städte: " + this.graph.getLength());
 			}
 			System.out.println("Algorithmus gelaufen: " + (AlgRunned ? "ja" : "nein"));
