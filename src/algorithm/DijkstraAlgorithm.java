@@ -3,13 +3,13 @@ package algorithm;
 import graph.IGraph;
 
 public class DijkstraAlgorithm implements IAlgorithm {
-	private int startNode=1;
-	private int endNode;
-	private IGraph graph;
-	private	int knoten[]; 
-	private int distanz[]; 
-	private int vorgaenger[];
+	private int 	startNode	= -1; 
+	private int 	endNode 	= -1;
+	private IGraph 	graph;
+	private int 	distanz[]; 
+	private int 	vorgaenger[];
 	private boolean besucht[];
+	private int 	weg[];
 
 	@Override
 	public void setStartNode(int node) {
@@ -25,20 +25,18 @@ public class DijkstraAlgorithm implements IAlgorithm {
 	public void run() {
 		if (this.startNode == -1 || this.endNode == -1 || this.graph == null) {
 			// throw new Exception();
+			//TODO
 		} else {
-			int unbesucht = graph.getLength();
-			if (unbesucht != 0) {
-				init();
-				wege();
-			}
+			init();
+			distanz_update();	
+			erstelleKürzestenPfad();
 		}
 
 	}
 
 	@Override
 	public int[] getResult() {
-		// TODO Auto-generated method stub
-		return new int[]{0,1,3};
+		return weg;
 	}
 
 	@Override
@@ -46,34 +44,78 @@ public class DijkstraAlgorithm implements IAlgorithm {
 		this.graph = graph;
 	}
 
-	private void init() {
-		 knoten = graph.getAllNodes();
-		 distanz =new int[graph.getLength()];
-		 vorgaenger=new int[graph.getLength()];
-		 besucht=new boolean[graph.getLength()];
-		
+	private void init() {		
+		 distanz	= new int[graph.getLength()];
+		 vorgaenger	= new int[graph.getLength()];
+		 besucht	= new boolean[graph.getLength()];
+		 
+		 for(int i = 0; i < graph.getLength(); i++){
+			 distanz[i]		= -1; // Unendliche Distanz für alle Knoten
+			 besucht[i]		= false; // Alle Knoten nicht besucht
+			 vorgaenger[i]	= -1; // Noch kein Vorgänger für alle Knoten
+		 }
+		 
+		 distanz[startNode] = 0;
+		 
 	}
 
-	private void wege() {
-		int aktKnoten=startNode;
-		int[]aktNachbarn;
-		for(int i=0;i<graph.getLength();i++){
-			aktNachbarn=graph.getNeighbors(aktKnoten);
-			for(int j=0;j<aktNachbarn.length;j++){
-				if(distanz[aktKnoten]==-1 || distanz[aktKnoten]>graph.getDistance(aktKnoten, aktNachbarn[j])){
-					distanz[aktKnoten]=graph.getDistance(aktKnoten,aktNachbarn[j]);	
-					vorgaenger[aktNachbarn[j]]=aktKnoten;
+	private void distanz_update() {
+		int aktKnoten = startNode; //Knoten mit dem begonnen wird
+		int[] aktNachbarn; //Nachbarn des zu bearbeitenden Knoten
+		
+		// Für alle Knoten im Graph
+		for(int i = 0; i < graph.getLength(); i++){
+			aktNachbarn = graph.getNeighbors(aktKnoten);
+			
+			// Für alle Nachbarn
+			for(int j = 0; j < aktNachbarn.length; j++){
+				
+				// Wenn der benachbarte Knoten noch keine Distanz gesetzt bekommen hat bzw. eine höhere Distanz hat als die gerade berechnete Distanz
+				if(distanz[aktNachbarn[j]] == -1 || distanz[aktNachbarn[j]] > graph.getDistance(aktKnoten, aktNachbarn[j]) + distanz[aktKnoten]){
+					
+					// Setzt die Distanz des Nachbarn auf die Distanz zwischen aktuellem Knoten und dem Nachbar plus der aktullen Distanz des Knoten
+					distanz[aktNachbarn[j]] = distanz[aktKnoten] + graph.getDistance(aktKnoten, aktNachbarn[j]);	
+					
+					// Der Vorgänger des Nachbarn wird auf den aktuellen Knoten gesetzt
+					vorgaenger[aktNachbarn[j]] = aktKnoten;
 				}
 					
 			}
-			besucht[aktKnoten]=true;
-			int max=Integer.MAX_VALUE;
-			for(int h=0;h<aktNachbarn.length;h++){
-				 if(distanz[aktNachbarn[h]]<max){
-					 max=distanz[aktNachbarn[h]];
+			
+			besucht[aktKnoten] = true; // Setzt den aktuellen Knoten auf besucht
+			int max = Integer.MAX_VALUE;
+			
+			// Für alle Nachbarn des aktullen Knoten
+			for(int h = 0; h < aktNachbarn.length; h++){ //aktKnoten = Knoten mit der geringsten Distanz
+				// Wenn der aktuelle Nachbar die kleinste Distanz hat und noch nicht besucht ist
+				 if(distanz[aktNachbarn[h]] < max && besucht[aktNachbarn[h]] == false){
+					 max = distanz[aktNachbarn[h]];
+					 aktKnoten = aktNachbarn[h];
 				 }
 			}
 			
+		}
+		
+	}
+	
+	/**
+	 * @post weg enthält die kürzeste Strecke
+	 */
+	private void erstelleKürzestenPfad(){
+		int aktKnoten = endNode;
+		int c = 0;
+		int[] tmp = new int[graph.getLength()];
+		
+		do{
+			tmp[c] = aktKnoten;
+			c++;
+			aktKnoten = vorgaenger[aktKnoten];
+		}while(aktKnoten != -1);
+		
+		this.weg = new int[c];
+		
+		for(int i = 0; i < this.weg.length; i++){
+			this.weg[i] = tmp[i];
 		}
 		
 	}
