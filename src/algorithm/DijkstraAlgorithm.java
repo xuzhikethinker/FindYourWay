@@ -115,7 +115,7 @@ public class DijkstraAlgorithm implements IAlgorithm {
 		this.weg = new int[c];
 		
 		for(int i = 0; i < this.weg.length; i++){
-			this.weg[i] = tmp[i];
+			this.weg[(this.weg.length - 1) - i] = tmp[i];
 		}
 		
 	}
