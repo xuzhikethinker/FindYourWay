@@ -10,18 +10,24 @@ public class DijkstraAlgorithm implements IAlgorithm {
 	private int 	vorgaenger[];
 	private boolean besucht[];
 	private int 	weg[];
+	private boolean startNodeChanged;
 
 	@Override
 	public void setStartNode(int node) throws IllegalArgumentException {
-		if(this.graph == null || this.graph.getLength()<=node){
+		if(this.graph == null || this.graph.getLength() <= node){
 			throw new IllegalArgumentException("Dieser Punkt existiert nicht");
 		}
-		this.startNode = node;
+		
+		if(this.startNode != node){
+			this.startNode = node;
+			startNodeChanged = true;
+		}
+		
 	}
 
 	@Override
 	public void setEndNode(int node) throws IllegalArgumentException {
-		if(this.graph == null || this.graph.getLength()<=node){
+		if(this.graph == null || this.graph.getLength() <= node){
 			throw new IllegalArgumentException("Dieser Punkt existiert nicht");
 		}
 		this.endNode = node;
@@ -32,9 +38,15 @@ public class DijkstraAlgorithm implements IAlgorithm {
 		if (this.startNode == -1 || this.endNode == -1 || this.graph == null) {
 			throw new IllegalStateException("Es wurden noch keine Daten gesetzt");
 		} else {
-			init();
-			distanz_update();	
-			erstelleKürzestenPfad();
+			if(startNodeChanged){
+				init();
+				distanz_update();	
+				createShortestPath();
+				startNodeChanged = false;
+			}else{
+				createShortestPath();
+			}
+			
 		}
 
 	}
@@ -47,6 +59,10 @@ public class DijkstraAlgorithm implements IAlgorithm {
 	@Override
 	public void setGraph(IGraph graph) {
 		this.graph = graph;
+		
+		//Start und End-Knoten noch nicht gesetzt
+		this.startNode 	= -1;
+		this.endNode 	= -1;
 	}
 
 	private void init() {		
@@ -57,7 +73,7 @@ public class DijkstraAlgorithm implements IAlgorithm {
 		 for(int i = 0; i < graph.getLength(); i++){
 			 distanz[i]		= -1; // Unendliche Distanz für alle Knoten
 			 besucht[i]		= false; // Alle Knoten nicht besucht
-			 vorgaenger[i]	= -1; // Noch kein Vorgänger für alle Knoten
+			 vorgaenger[i]	= -1; // Noch kein Vorgaenger für alle Knoten
 		 }
 		 
 		 distanz[startNode] = 0;
@@ -75,7 +91,7 @@ public class DijkstraAlgorithm implements IAlgorithm {
 			// Für alle Nachbarn
 			for(int j = 0; j < aktNachbarn.length; j++){
 				
-				// Wenn der benachbarte Knoten noch keine Distanz gesetzt bekommen hat bzw. eine höhere Distanz hat als die gerade berechnete Distanz
+				// Wenn der benachbarte Knoten noch keine Distanz gesetzt bekommen hat bzw. eine hoehere Distanz hat als die gerade berechnete Distanz
 				if(distanz[aktNachbarn[j]] == -1 || distanz[aktNachbarn[j]] > graph.getDistance(aktKnoten, aktNachbarn[j]) + distanz[aktKnoten]){
 					
 					// Setzt die Distanz des Nachbarn auf die Distanz zwischen aktuellem Knoten und dem Nachbar plus der aktullen Distanz des Knoten
@@ -90,7 +106,7 @@ public class DijkstraAlgorithm implements IAlgorithm {
 			besucht[aktKnoten] = true; // Setzt den aktuellen Knoten auf besucht
 			int max = Integer.MAX_VALUE;
 			
-			// Für alle Nachbarn des aktullen Knoten
+			// Fuer alle Nachbarn des aktullen Knoten
 			for(int h = 0; h < aktNachbarn.length; h++){ //aktKnoten = Knoten mit der geringsten Distanz
 				// Wenn der aktuelle Nachbar die kleinste Distanz hat und noch nicht besucht ist
 				 if(distanz[aktNachbarn[h]] < max && besucht[aktNachbarn[h]] == false){
@@ -104,12 +120,12 @@ public class DijkstraAlgorithm implements IAlgorithm {
 	}
 	
 	/**
-	 * @post weg enthält die kürzeste Strecke
+	 * @post weg enthaelt die kuerzeste Strecke
 	 */
-	private void erstelleKürzestenPfad(){
-		int aktKnoten = endNode;
-		int c = 0;
-		int[] tmp = new int[graph.getLength()];
+	private void createShortestPath(){
+		int 	aktKnoten 	= endNode;
+		int 	c 			= 0;
+		int[] 	tmp 		= new int[graph.getLength()];
 		
 		do{
 			tmp[c] = aktKnoten;
