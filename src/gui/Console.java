@@ -156,6 +156,7 @@ public class Console implements IUserinterface {
 			for (int node : result) {
 				System.out.print(this.graph.getNodeName(node) + " - ");
 			}
+			System.out.println();
 		} else {
 			System.out.println("Algorithmus ist noch nicht gelaufen.");
 		}
