@@ -17,11 +17,7 @@ public class Main {
 		ui.setAlgorithm(new DijkstraAlgorithm());
 
 		// UI ausführen
-		try {
-			ui.run();
-		} catch (Exception e) {
-			System.err.println("Can not start user interface. " + e.toString());
-		}
+		ui.run();
 
 	}
 }

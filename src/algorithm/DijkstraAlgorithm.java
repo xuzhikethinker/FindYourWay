@@ -12,20 +12,25 @@ public class DijkstraAlgorithm implements IAlgorithm {
 	private int 	weg[];
 
 	@Override
-	public void setStartNode(int node) {
+	public void setStartNode(int node) throws IllegalArgumentException {
+		if(this.graph == null || this.graph.getLength()<=node){
+			throw new IllegalArgumentException("Dieser Punkt existiert nicht");
+		}
 		this.startNode = node;
 	}
 
 	@Override
-	public void setEndNode(int node) {
+	public void setEndNode(int node) throws IllegalArgumentException {
+		if(this.graph == null || this.graph.getLength()<=node){
+			throw new IllegalArgumentException("Dieser Punkt existiert nicht");
+		}
 		this.endNode = node;
 	}
 
 	@Override
-	public void run() {
+	public void run() throws IllegalStateException {
 		if (this.startNode == -1 || this.endNode == -1 || this.graph == null) {
-			// throw new Exception();
-			//TODO
+			throw new IllegalStateException("Es wurden noch keine Daten gesetzt");
 		} else {
 			init();
 			distanz_update();	

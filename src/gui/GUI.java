@@ -26,13 +26,24 @@ public class GUI implements IUserinterface {
 			// Datei nicht vorhanden?
 		}
 
-		this.algorithm.setStartNode(10); // ID von Berlin
-		this.algorithm.setEndNode(12); // ID von M�nchen
+		try {
+			this.algorithm.setStartNode(10); // ID von Berlin
+		} catch (IllegalArgumentException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {
+			this.algorithm.setEndNode(12); // ID von M�nchen
+		} catch (IllegalArgumentException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		// Algorithmus laufen lassen
 		try {
 			this.algorithm.run();
-		} catch (Exception e) {
+		} catch (IllegalStateException e) {
 			// Fehlerbehandlung
 		}
 		int result[] = this.algorithm.getResult();

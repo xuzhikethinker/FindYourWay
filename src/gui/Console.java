@@ -55,13 +55,24 @@ public class Console implements IUserinterface {
 
 					listNodes();
 					System.out.println();
+					
 					System.out.print("Startpunkt: ");
 					int start = Integer.parseInt(scan.nextLine());
-					this.algorithm.setStartNode(start);
+					
+					try {
+						this.algorithm.setStartNode(start);
+					} catch (IllegalArgumentException e) {
+						System.out.println(e.getMessage());
+					}
 
 					System.out.print("Endpunkt: ");
 					int end = Integer.parseInt(scan.nextLine());
-					this.algorithm.setEndNode(end);
+					
+					try {
+						this.algorithm.setEndNode(end);
+					} catch (IllegalArgumentException e) {
+						System.out.println(e.getMessage());
+					}
 					
 					// Da Daten geändert wurden
 					AlgRunned=false;
@@ -74,9 +85,8 @@ public class Console implements IUserinterface {
 
 					System.out.println("Fertig berechnet.");
 					AlgRunned = true;
-				} catch (Exception e) {
-					// Fehlerbehandlung
-					System.out.println("Algorithmus-Fehler");
+				} catch (IllegalStateException e) {
+					System.out.println(e.getMessage());
 				}
 
 				break;
@@ -115,7 +125,7 @@ public class Console implements IUserinterface {
 					System.out.println("Daten wurden geladen");
 					showMatrix();
 				} catch (FileNotFoundException e) {
-					// Datei nicht vorhanden?
+					System.out.println("Datei nicht vorhanden");
 				}
 				break;
 			}

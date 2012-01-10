@@ -14,18 +14,18 @@ public interface IAlgorithm {
 	 * Setzt den Startpunkt.
 	 * @param node
 	 */
-	void setStartNode(int node);
+	void setStartNode(int node) throws IllegalArgumentException;
 	
 	/**
 	 * Setzt den Endpunkt.
 	 * @param node
 	 */
-	void setEndNode(int node);
+	void setEndNode(int node) throws IllegalArgumentException;
 	
 	/**
 	 * Führt den Algorithmus aus.
 	 */
-	void run();
+	void run() throws IllegalStateException;
 	
 	/**
 	 * Gibt Punkte in ermittelter Reihenfolge zurück
