@@ -78,6 +78,9 @@ public class Graph implements IGraph {
 
 	@Override
 	public String getNodeName(int a) {
+		if(a < 0 || a >= matrix.length){
+			return "";
+		}
 		return names[a];
 	}
 

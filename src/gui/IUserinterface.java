@@ -10,6 +10,14 @@ package gui;
 import algorithm.IAlgorithm;
 
 public interface IUserinterface {
+	/**
+	 * Setzt eine Instanz des Algorithmus.
+	 * @param algorithm
+	 * @return 
+	 */
 	void setAlgorithm(IAlgorithm algorithm);
+	/**
+	 * Startet Interface
+	 */
 	void run();
 }
