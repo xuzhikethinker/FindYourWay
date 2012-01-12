@@ -1,14 +1,42 @@
 package graph;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Graph implements IGraph {
 
 	private int matrix[][];
 	private String names[];
 
-	public Graph(String file) throws FileNotFoundException {
-		// TODO Aus Datei einlesen
+	public Graph(String filename) throws FileNotFoundException {
+		// TODO ggf. dateiendung anhängen
+		String neu;
+		int anzahl;
+		String[] Knoten;
+		int i = 0;
+		FileReader fr = new FileReader("./files/" + filename);
+		BufferedReader reader = new BufferedReader(fr);
+		try {
+			while ((neu = reader.readLine()) != null) {
+				anzahl = neu.split(" ").length;
+				if (i < anzahl) {
+					Knoten = neu.split(" ");
+					for (int j = 0; j <= i - 1; j++) {
+						if (!Knoten[j].equals("00")) {
+							this.setDistance(i, j, Integer.parseInt(Knoten[j]));
+						}
+					}
+				} else {
+					this.setNodeName(i - anzahl, neu);
+				}
+				i++;
+
+			}
+		} catch (IOException e) {
+			System.out.println("Fehler beim lesen der Datei");
+		}
 
 		// Beispieldatensatz, Hardcoded
 		// http://upload.wikimedia.org/wikipedia/commons/4/45/Dijksta_Anim.gif
