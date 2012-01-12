@@ -4,3 +4,5 @@ private/*
 private
 .classpath
 .classpath
+.settings/*
+.settings
