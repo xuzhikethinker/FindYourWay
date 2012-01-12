@@ -42,7 +42,7 @@ public class Console implements IUserinterface {
 						+ this.graph.getNodeName(this.algorithm.getEndNode()));
 			
 			if (graph != null)
-				System.out.println("Anzahl der Städte: "
+				System.out.println("Anzahl der Stï¿½dte: "
 						+ this.graph.getLength());
 
 			System.out.println("Algorithmus gelaufen: "
@@ -95,7 +95,7 @@ public class Console implements IUserinterface {
 
 	private void subConfig() {
 		if (this.graph == null) {
-			System.out.println("Es wurden noch keine Städte geladen.");
+			System.out.println("Es wurden noch keine Stï¿½dte geladen.");
 		} else {
 
 			listNodes();
@@ -119,13 +119,13 @@ public class Console implements IUserinterface {
 				System.out.println(e.getMessage());
 			}
 
-			// Da Daten geändert wurden
+			// Da Daten geï¿½ndert wurden
 			this.AlgRunned = false;
 		}
 	}
 
 	private void subRead() {
-		System.out.print("Dateiname eingeben: ");
+		System.out.print("Dateiname eingeben (*.graph): ");
 		String file = scan.nextLine().trim();
 
 		try {
@@ -165,7 +165,7 @@ public class Console implements IUserinterface {
 	private void listNodes() {
 		int[] nodes = this.graph.getAllNodes();
 
-		System.out.println("Vorhandene Städte:");
+		System.out.println("Vorhandene Stï¿½dte:");
 		for (int node : nodes) {
 			System.out.printf("%d: %s\n", node, this.graph.getNodeName(node));
 		}
@@ -176,7 +176,7 @@ public class Console implements IUserinterface {
 		System.out.println("c, config \t- Daten eingeben");
 		System.out.println("run \t- Algorithmus laufen lassen");
 		System.out.println("result \t- Ergebnis anzeigen");
-		System.out.println("r, read \t- Städte laden");
+		System.out.println("r, read \t- Stï¿½dte laden");
 		System.out.println("q, quit \t- Programm beenden");
 	}
 
