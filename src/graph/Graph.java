@@ -11,7 +11,7 @@ public class Graph implements IGraph {
 	private String names[];
 
 	public Graph(String filename) throws FileNotFoundException {
-		// TODO ggf. dateiendung anhängen
+		// TODO ggf. Dateiendung anhängen
 		String neu;
 		int anzahl;
 		String[] Knoten;
