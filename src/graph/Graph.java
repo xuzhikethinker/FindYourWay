@@ -16,26 +16,35 @@ public class Graph implements IGraph {
 		int anzahl;
 		String[] Knoten;
 		int i = 0;
-		FileReader fr = new FileReader("./files/" + filename);
+		int z = 0;
+		// "./files/" + filename
+		FileReader fr = new FileReader("files/Wikipedia-Beispiel.graph");
 		BufferedReader reader = new BufferedReader(fr);
 		try {
 			while ((neu = reader.readLine()) != null) {
 				anzahl = neu.split(" ").length;
 				if (i < anzahl) {
 					Knoten = neu.split(" ");
-					for (int j = 0; j <= i - 1; j++) {
-						if (!Knoten[j].equals("00")) {
-							this.setDistance(i, j, Integer.parseInt(Knoten[j]));
+					this.setLength(Knoten.length);
+					for (int y = 0; y < Knoten.length; y++) {
+						for (int j = 0; j < Knoten.length; j++) {
+							if (!Knoten[j].equals("00")) {
+								this.setDistance(y, j,
+										Integer.parseInt(Knoten[j]));
+							}
 						}
 					}
-				} else {
-					this.setNodeName(i - anzahl, neu);
+				}
+
+				else {
+					this.setNodeName(z, neu);
+					z++;
 				}
 				i++;
 
 			}
 		} catch (IOException e) {
-			System.out.println("Fehler beim lesen der Datei");
+			System.out.println("Fehler beim Lesen der Datei");
 		}
 
 		// Beispieldatensatz, Hardcoded
