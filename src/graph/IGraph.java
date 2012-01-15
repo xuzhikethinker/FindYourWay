@@ -1,5 +1,7 @@
 package graph;
 
+import java.io.IOException;
+
 public interface IGraph {
 
 	/**
@@ -58,4 +60,7 @@ public interface IGraph {
 	 * @param dist Distanzwert
 	 */
 	void setDistance(int a, int b, int dist);
+	
+	
+	void save() throws IOException;
 }

@@ -1,8 +1,10 @@
 package graph;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class Graph implements IGraph {
@@ -136,6 +138,46 @@ public class Graph implements IGraph {
 		// a >= Node b annehmen
 		matrix[a][b] = dist;
 		matrix[b][a] = dist;
+	}
+	
+	@Override
+	public void save() throws IOException{
+		FileWriter fw = new FileWriter(".\\files\\Wikipedia-Beispiel-save.graph");
+		BufferedWriter writer = new BufferedWriter(fw);	
+		
+		int tmp;
+		
+		//Matrix
+		for(int i = 0; i < this.getLength(); i++){
+			for(int j = 0; j < this.getLength(); j++){
+				tmp = this.getDistance(i, j);
+				
+				if(tmp < 10 && tmp != 0){
+					writer.write("0" + tmp);
+				}else if(tmp == 0){
+					writer.write("00");
+				}else{
+					writer.write(tmp + "");
+				}
+				
+				writer.write(" ");
+				
+			}
+			writer.write(System.getProperty("line.separator"));
+			writer.flush();
+		}
+		
+		//Namen
+		for(int i = 0; i < this.getLength(); i++){
+			writer.write(this.getNodeName(i));
+			
+			if(i != this.getLength() - 1){
+				writer.write(System.getProperty("line.separator"));
+			}
+			
+			writer.flush();	
+		}
+		writer.close();
 	}
 
 }
