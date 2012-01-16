@@ -42,7 +42,7 @@ public class Console implements IUserinterface {
 						+ this.graph.getNodeName(this.algorithm.getEndNode()));
 			
 			if (graph != null)
-				System.out.println("Anzahl der St�dte: "
+				System.out.println("Anzahl der Städte: "
 						+ this.graph.getLength());
 
 			System.out.println("Algorithmus gelaufen: "
@@ -95,7 +95,7 @@ public class Console implements IUserinterface {
 
 	private void subConfig() {
 		if (this.graph == null) {
-			System.out.println("Es wurden noch keine St�dte geladen.");
+			System.out.println("Es wurden noch keine Städte geladen.");
 		} else {
 
 			listNodes();
@@ -165,7 +165,7 @@ public class Console implements IUserinterface {
 	private void listNodes() {
 		int[] nodes = this.graph.getAllNodes();
 
-		System.out.println("Vorhandene St�dte:");
+		System.out.println("Vorhandene Städte:");
 		for (int node : nodes) {
 			System.out.printf("%d: %s\n", node, this.graph.getNodeName(node));
 		}
