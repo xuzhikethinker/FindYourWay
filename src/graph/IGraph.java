@@ -1,5 +1,6 @@
 package graph;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface IGraph {
@@ -61,6 +62,15 @@ public interface IGraph {
 	 */
 	void setDistance(int a, int b, int dist);
 	
+	/**
+	 * Speichert den Graph in eine Datei (*.graph-Format)
+	 * @throws IOException
+	 */
+	void writeToFile(String filename) throws IOException;
 	
-	void save() throws IOException;
+	/**
+	 * Lieﬂt den Graph aus einer Datei (*.graph-Format)
+	 * @throws FileNotFoundException
+	 */	
+	void readFromFile(String filename) throws FileNotFoundException;
 }

@@ -13,61 +13,7 @@ public class Graph implements IGraph {
 	private String names[];
 
 	public Graph(String filename) throws FileNotFoundException {
-		// TODO ggf. Dateiendung anhängen.
-		String neu;
-		int anzahl;
-		String[] Knoten;
-		int i = 0;
-		int z = 0;
-		// "./files/" + filename
-		FileReader fr = new FileReader("files/Wikipedia-Beispiel.graph");
-		BufferedReader reader = new BufferedReader(fr);
-		try {
-			while ((neu = reader.readLine()) != null) {
-				anzahl = neu.split(" ").length;
-				if (i < anzahl) {
-					Knoten = neu.split(" ");
-					this.setLength(Knoten.length);
-					for (int y = 0; y < Knoten.length; y++) {
-						for (int j = 0; j < Knoten.length; j++) {
-							if (!Knoten[j].equals("00")) {
-								this.setDistance(y, j,
-										Integer.parseInt(Knoten[j]));
-							}
-						}
-					}
-				}
-
-				else {
-					this.setNodeName(z, neu);
-					z++;
-				}
-				i++;
-
-			}
-		} catch (IOException e) {
-			System.out.println("Fehler beim Lesen der Datei");
-		}
-
-		// Beispieldatensatz, Hardcoded
-		// http://upload.wikimedia.org/wikipedia/commons/4/45/Dijksta_Anim.gif
-		this.setLength(6);
-		this.setDistance(0, 1, 7); // 1 zu 2
-		this.setDistance(0, 2, 9); // 1 zu 3
-		this.setDistance(0, 5, 14); // 1 zu 6
-		this.setDistance(1, 2, 10); // 2 zu 3
-		this.setDistance(1, 3, 15); // 2 zu 4
-		this.setDistance(2, 3, 11); // 3 zu 4
-		this.setDistance(2, 5, 2); // 3 zu 6
-		this.setDistance(3, 4, 6); // 4 zu 5
-		this.setDistance(4, 5, 9); // 5 zu 6
-
-		this.setNodeName(0, "Punkt 1");
-		this.setNodeName(1, "Punkt 2");
-		this.setNodeName(2, "Punkt 3");
-		this.setNodeName(3, "Punkt 4");
-		this.setNodeName(4, "Punkt 5");
-		this.setNodeName(5, "Punkt 6");
+		this.readFromFile(filename);
 	}
 
 	public Graph(int length) {
@@ -139,45 +85,83 @@ public class Graph implements IGraph {
 		matrix[a][b] = dist;
 		matrix[b][a] = dist;
 	}
-	
+
 	@Override
-	public void save() throws IOException{
-		FileWriter fw = new FileWriter(".\\files\\Wikipedia-Beispiel-save.graph");
-		BufferedWriter writer = new BufferedWriter(fw);	
-		
+	public void writeToFile(String filename) throws IOException {
 		int tmp;
 		
-		//Matrix
-		for(int i = 0; i < this.getLength(); i++){
-			for(int j = 0; j < this.getLength(); j++){
+		// TODO ggf. Dateiendung anh‰ngen.
+		FileWriter fw = new FileWriter("./files/" + filename);
+		BufferedWriter writer = new BufferedWriter(fw);
+
+		// Matrix
+		for (int i = 0; i < this.getLength(); i++) {
+			for (int j = 0; j < this.getLength(); j++) {
 				tmp = this.getDistance(i, j);
-				
-				if(tmp < 10 && tmp != 0){
+
+				if (tmp < 10 && tmp != 0) {
 					writer.write("0" + tmp);
-				}else if(tmp == 0){
+				} else if (tmp == 0) {
 					writer.write("00");
-				}else{
+				} else {
 					writer.write(tmp + "");
 				}
-				
+
 				writer.write(" ");
-				
+
 			}
 			writer.write(System.getProperty("line.separator"));
 			writer.flush();
 		}
-		
-		//Namen
-		for(int i = 0; i < this.getLength(); i++){
+
+		// Namen
+		for (int i = 0; i < this.getLength(); i++) {
 			writer.write(this.getNodeName(i));
-			
-			if(i != this.getLength() - 1){
+
+			if (i != this.getLength() - 1) {
 				writer.write(System.getProperty("line.separator"));
 			}
-			
-			writer.flush();	
+
+			writer.flush();
 		}
 		writer.close();
+
+	}
+
+	@Override
+	public void readFromFile(String filename) throws FileNotFoundException {
+		String neu;
+		int anzahl = 0;
+		String[] Knoten;
+		int i = 0;
+
+		// TODO ggf. Dateiendung anh‰ngen.
+		FileReader fr = new FileReader("./files/" + filename);
+		BufferedReader reader = new BufferedReader(fr);
+
+		try {
+			while ((neu = reader.readLine()) != null) {
+				if (i == 0) {
+					// Graph initalisieren
+					anzahl = neu.split(" ").length;
+					this.setLength(anzahl);
+				}
+				if (i < anzahl) {
+					Knoten = neu.split(" ");
+					for (int j = 0; j < Knoten.length; j++) {
+						if (!Knoten[j].equals("00")) {
+							this.setDistance(i, j, Integer.parseInt(Knoten[j]));
+						}
+					}
+				} else {
+					this.setNodeName(i - anzahl, neu);
+				}
+				i++;
+			}
+
+		} catch (IOException e) {
+			System.out.println("Fehler beim Lesen der Datei");
+		}
 	}
 
 }
