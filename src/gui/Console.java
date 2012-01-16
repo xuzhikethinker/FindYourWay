@@ -102,24 +102,37 @@ public class Console implements IUserinterface {
 			System.out.println();
 
 			System.out.print("Startpunkt: ");
-			int start = Integer.parseInt(scan.nextLine());
-
+			int start;
 			try {
-				this.algorithm.setStartNode(start);
-			} catch (IllegalArgumentException e) {
-				System.out.println(e.getMessage());
+				start = Integer.parseInt(scan.nextLine());
+				
+				try {
+					this.algorithm.setStartNode(start);
+				} catch (IllegalArgumentException e) {
+					System.out.println(e.getMessage());
+				}
+				
+			} catch (NumberFormatException e2) {
+				System.out.println("Es wurde keine Zahl eingegeben");
 			}
 
 			System.out.print("Endpunkt: ");
-			int end = Integer.parseInt(scan.nextLine());
-
+			int end;
+			
 			try {
-				this.algorithm.setEndNode(end);
-			} catch (IllegalArgumentException e) {
-				System.out.println(e.getMessage());
+				end = Integer.parseInt(scan.nextLine());
+				
+				try {
+					this.algorithm.setEndNode(end);
+				} catch (IllegalArgumentException e) {
+					System.out.println(e.getMessage());
+				}
+				
+			} catch (NumberFormatException e1) {
+				System.out.println("Es wurde keine Zahl eingegeben");
 			}
 
-			// Da Daten ge�ndert wurden
+			// Da Daten geändert wurden
 			this.AlgRunned = false;
 		}
 	}
@@ -176,7 +189,7 @@ public class Console implements IUserinterface {
 		System.out.println("c, config \t- Daten eingeben");
 		System.out.println("run \t- Algorithmus laufen lassen");
 		System.out.println("result \t- Ergebnis anzeigen");
-		System.out.println("r, read \t- St�dte laden");
+		System.out.println("r, read \t- Städte laden");
 		System.out.println("q, quit \t- Programm beenden");
 	}
 
