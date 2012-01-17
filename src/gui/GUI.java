@@ -29,14 +29,12 @@ public class GUI implements IUserinterface {
 		try {
 			this.algorithm.setStartNode(10); // ID von Berlin
 		} catch (IllegalArgumentException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
 		try {
 			this.algorithm.setEndNode(12); // ID von M�nchen
 		} catch (IllegalArgumentException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 

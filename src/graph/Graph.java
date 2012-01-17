@@ -90,7 +90,7 @@ public class Graph implements IGraph {
 	public void writeToFile(String filename) throws IOException {
 		int tmp;
 		
-		// TODO ggf. Dateiendung anh�ngen.
+		// TODO ggf. Dateiendung anhängen (über Funktion addFileExt())
 		FileWriter fw = new FileWriter("./files/" + filename);
 		BufferedWriter writer = new BufferedWriter(fw);
 
@@ -99,6 +99,7 @@ public class Graph implements IGraph {
 			for (int j = 0; j < this.getLength(); j++) {
 				tmp = this.getDistance(i, j);
 
+				// TODO Über String.Format() implementieren
 				if (tmp < 10 && tmp != 0) {
 					writer.write("0" + tmp);
 				} else if (tmp == 0) {
@@ -135,7 +136,7 @@ public class Graph implements IGraph {
 		String[] Knoten;
 		int i = 0;
 
-		// TODO ggf. Dateiendung anh�ngen.
+		// TODO ggf. Dateiendung anhängen (über Funktion addFileExt())
 		FileReader fr = new FileReader("./files/" + filename);
 		BufferedReader reader = new BufferedReader(fr);
 
