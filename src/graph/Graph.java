@@ -102,8 +102,6 @@ public class Graph implements IGraph {
 				// TODO Über String.Format() implementieren
 				if (tmp < 10 && tmp != 0) {
 					writer.write("0" + tmp);
-				} else if (tmp == 0) {
-					writer.write("00");
 				} else {
 					writer.write(tmp + "");
 				}
