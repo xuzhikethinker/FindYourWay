@@ -89,9 +89,8 @@ public class Graph implements IGraph {
 	@Override
 	public void writeToFile(String filename) throws IOException {
 		int tmp;
-		
-		// TODO ggf. Dateiendung anhängen (über Funktion addFileExt())
-		FileWriter fw = new FileWriter("./files/" + filename);
+
+		FileWriter fw = new FileWriter("./files/" + addFileExt(filename));
 		BufferedWriter writer = new BufferedWriter(fw);
 
 		// Matrix
@@ -121,6 +120,14 @@ public class Graph implements IGraph {
 
 	}
 
+	private String addFileExt(String filename) {
+		if (filename.indexOf(".graph") > 0) {
+			return filename;
+		} else {
+			return filename + ".graph";
+		}
+	}
+
 	@Override
 	public void readFromFile(String filename) throws FileNotFoundException {
 		String neu;
@@ -129,7 +136,7 @@ public class Graph implements IGraph {
 		int i = 0;
 
 		// TODO ggf. Dateiendung anhängen (über Funktion addFileExt())
-		FileReader fr = new FileReader("./files/" + filename);
+		FileReader fr = new FileReader("./files/" + addFileExt(filename));
 		BufferedReader reader = new BufferedReader(fr);
 
 		try {
