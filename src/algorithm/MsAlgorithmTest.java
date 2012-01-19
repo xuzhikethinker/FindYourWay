@@ -50,6 +50,8 @@ public class MsAlgorithmTest {
 		}
 		System.out.println();
 		System.out.println("MsAlgo-Distanz: " + msAlgo.getTotalDistance() + " km");
+		
+		assertArrayEquals(dkAlgo.getResult(), msAlgo.getResult());
 	}
 
 }
