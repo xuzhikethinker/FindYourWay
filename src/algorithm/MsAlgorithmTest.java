@@ -1,11 +1,10 @@
 package algorithm;
 
 import static org.junit.Assert.*;
+import graph.Graph;
+import graph.IGraph;
 
 import java.io.FileNotFoundException;
-import java.util.Arrays;
-
-import graph.Graph;
 
 import org.junit.Test;
 
@@ -15,20 +14,42 @@ public class MsAlgorithmTest {
 	public void testRun() {
 
 		MsAlgorithm msAlgo = new MsAlgorithm();
-
+		DijkstraAlgorithm dkAlgo=new DijkstraAlgorithm();
+		
+		IGraph graph;
+		
 		try {
-			msAlgo.setGraph(new Graph("Wikipedia-Beispiel.graph"));
+			graph=new Graph("Cities.graph");
+			msAlgo.setGraph(graph);
+			dkAlgo.setGraph(graph);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			fail();
+			return;
 		}
-		msAlgo.setStartNode(0);
-		msAlgo.setEndNode(4);
-		msAlgo.run();
 		
-		int result[] = msAlgo.getResult();
-		assertTrue(result.length>0);
-		System.out.println(Arrays.toString(result));
-		System.out.println(msAlgo.getTotalDistance());
+		dkAlgo.setStartNode(3);
+		dkAlgo.setEndNode(8);
+		dkAlgo.run();
+
+		System.out.print("DkAlgo-Route: - ");
+		for (int node : dkAlgo.getResult()) {
+			System.out.print(graph.getNodeName(node) + " - ");
+		}
+		System.out.println();
+		System.out.println("DkAlgo-Distanz: " + dkAlgo.getTotalDistance() + " km");
+		
+		
+		msAlgo.setStartNode(3);
+		msAlgo.setEndNode(8);
+		msAlgo.run();
+
+		System.out.print("MsAlgo-Route: - ");
+		for (int node : msAlgo.getResult()) {
+			System.out.print(graph.getNodeName(node) + " - ");
+		}
+		System.out.println();
+		System.out.println("MsAlgo-Distanz: " + msAlgo.getTotalDistance() + " km");
 	}
 
 }
