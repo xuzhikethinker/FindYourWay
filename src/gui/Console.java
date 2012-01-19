@@ -215,7 +215,7 @@ public class Console implements IUserinterface {
 	private void showMatrix() {
 		for (int i = 0; i < this.graph.getLength(); i++) {
 			for (int j = 0; j < this.graph.getLength(); j++) {
-				System.out.printf("%02d ", this.graph.getDistance(i, j));
+				System.out.printf("%03d ", this.graph.getDistance(i, j));
 			}
 			System.out.println();
 		}
