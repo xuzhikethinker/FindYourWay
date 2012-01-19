@@ -3,8 +3,8 @@ package algorithm;
 import graph.IGraph;
 
 public class MsAlgorithm implements IAlgorithm {
-	private int startNode;
-	private int endNode;
+	private int startNode=-1;
+	private int endNode=-1;
 	private IGraph graph;
 
 	private int[] result;
