@@ -57,7 +57,8 @@ public class MsAlgorithm implements IAlgorithm {
 			return this.result;
 		}
 	}
-
+	
+	@Override
 	public int getTotalDistance() {
 		if (this.result == null) {
 			return 0;

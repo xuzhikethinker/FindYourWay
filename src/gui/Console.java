@@ -184,11 +184,14 @@ public class Console implements IUserinterface {
 	private void showResult() {
 		if (this.AlgRunned) {
 			int result[] = this.algorithm.getResult();
+
 			System.out.print("Route: - ");
 			for (int node : result) {
 				System.out.print(this.graph.getNodeName(node) + " - ");
 			}
 			System.out.println();
+			System.out.println("Distanz: " + this.algorithm.getTotalDistance());
+			
 		} else {
 			System.out.println("Algorithmus ist noch nicht gelaufen.");
 		}
