@@ -4,6 +4,7 @@ import graph.Graph;
 import graph.IGraph;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import algorithm.IAlgorithm;
@@ -78,7 +79,12 @@ public class Console implements IUserinterface {
 			case "read":
 				subRead();
 				break;
-
+				
+			case "w":
+			case "write":
+				subWrite();
+				break;
+				
 			case "q":
 			case "quit":
 			case "exit":
@@ -150,7 +156,20 @@ public class Console implements IUserinterface {
 			System.out.println("Datei nicht vorhanden.");
 		}
 	}
+	
+	private void subWrite() {
+		System.out.print("Dateiname eingeben (*.graph): ");
+		String file = scan.nextLine().trim();
 
+		try {
+			graph.writeToFile(file);
+			System.out.println("Daten wurden in " + file + " geschrieben.");
+			showMatrix();
+		} catch (IOException e) {
+			System.out.println("Datei nicht vorhanden.");
+		}
+	}
+	
 	private void subRun() {
 		try {
 			this.algorithm.run();

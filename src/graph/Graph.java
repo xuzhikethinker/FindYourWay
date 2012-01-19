@@ -99,15 +99,9 @@ public class Graph implements IGraph {
 			for (int j = 0; j < this.getLength(); j++) {
 				tmp = this.getDistance(i, j);
 
-				// TODO Über String.Format() implementieren
-				if (tmp < 10 && tmp != 0) {
-					writer.write("0" + tmp);
-				} else {
-					writer.write(tmp + "");
-				}
-
+				// Immer zweistellige Zahlen anzeigen
+				writer.write(String.format("%02d", tmp));
 				writer.write(" ");
-
 			}
 			writer.write(System.getProperty("line.separator"));
 			writer.flush();
