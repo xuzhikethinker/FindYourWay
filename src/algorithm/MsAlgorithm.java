@@ -34,7 +34,8 @@ public class MsAlgorithm implements IAlgorithm {
 	@Override
 	public void run() {
 		if (this.graph == null || this.startNode == this.endNode) {
-			// throw new Exception("set graph first");
+			throw new IllegalStateException(
+					"Es wurden noch keine Daten gesetzt");
 		}
 
 		// 1. Initialisierung
@@ -51,16 +52,18 @@ public class MsAlgorithm implements IAlgorithm {
 	@Override
 	public int[] getResult() {
 		if (this.result == null) {
-			// throw new Exception("run algo first");
+			return null;
+		} else {
+			return this.result;
 		}
-		return this.result;
 	}
-	
-	public int getTotalDistance(){
+
+	public int getTotalDistance() {
 		if (this.result == null) {
-			// throw new Exception("run algo first");
+			return 0;
+		} else {
+			return distance[this.endNode];
 		}
-		return distance[this.endNode];
 	}
 
 	private void buildResult() {
@@ -76,10 +79,10 @@ public class MsAlgorithm implements IAlgorithm {
 			j++;
 		} while (current != this.startNode);
 
-		// Richtige Größe anlegen
+		// Richtige GrÃ¶ÃŸe anlegen
 		this.result = new int[j];
 
-		// Rückwärts schreiben
+		// RÃ¼ckwÃ¤rts schreiben
 		for (int i = 0; i < j; i++) {
 			this.result[i] = resultTmp[j - 1 - i];
 		}
@@ -90,13 +93,13 @@ public class MsAlgorithm implements IAlgorithm {
 		int[] neightbors;
 		int dist;
 
-		// TODO Optimieren falls Distanzen gleich lang sind (z.B. Weg 5-2 und
-		// 2-5)!
+		// TODO Optimieren falls Distanzen gleich lang sind
+		// (z.B. Weg 5-2 und 2-5)!
 		do {
 			current = getNextByMinDistance();
 
 			if (current == -1) {
-				// throw new Exception("Es kann kein Weg gefunden werden")
+				// TODO throw new Exception("Es kann kein Weg gefunden werden")
 			}
 
 			// 2.1. Knoten ist nun schon besucht
@@ -127,7 +130,7 @@ public class MsAlgorithm implements IAlgorithm {
 		previous = new int[this.graph.getLength()];
 		visited = new boolean[this.graph.getLength()];
 
-		// Alle mit Default-Werte befüllen
+		// Alle mit Default-Werte befÃ¼llen
 		for (int i = 0; i < this.graph.getLength(); i++) {
 
 			if (i == this.startNode) {

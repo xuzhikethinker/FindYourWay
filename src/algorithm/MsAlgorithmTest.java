@@ -17,12 +17,12 @@ public class MsAlgorithmTest {
 		MsAlgorithm msAlgo = new MsAlgorithm();
 
 		try {
-			msAlgo.setGraph(new Graph(""));
+			msAlgo.setGraph(new Graph("Wikipedia-Beispiel.graph"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		msAlgo.setStartNode(1);
-		msAlgo.setEndNode(5);
+		msAlgo.setStartNode(0);
+		msAlgo.setEndNode(4);
 		msAlgo.run();
 		
 		int result[] = msAlgo.getResult();
