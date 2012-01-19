@@ -135,7 +135,6 @@ public class Graph implements IGraph {
 		String[] Knoten;
 		int i = 0;
 
-		// TODO ggf. Dateiendung anhängen (über Funktion addFileExt())
 		FileReader fr = new FileReader("./files/" + addFileExt(filename));
 		BufferedReader reader = new BufferedReader(fr);
 
