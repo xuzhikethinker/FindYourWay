@@ -58,31 +58,31 @@ public class Console implements IUserinterface {
 			switch (auswahl) {
 
 			case "run":
-				subRun();
+				runDialog();
 				break;
 
 			case "result":
-				listResult();
+				showResult();
 				break;
 
 			case "c":
 			case "config":
-				subConfig();
+				configDialog();
 				break;
 
 			case "h":
 			case "help":
-				listHelp();
+				showHelp();
 				break;
 
 			case "r":
 			case "read":
-				subRead();
+				readDialog();
 				break;
 				
 			case "w":
 			case "write":
-				subWrite();
+				writeDialog();
 				break;
 				
 			case "q":
@@ -99,12 +99,12 @@ public class Console implements IUserinterface {
 
 	}
 
-	private void subConfig() {
+	private void configDialog() {
 		if (this.graph == null) {
 			System.out.println("Es wurden noch keine Städte geladen.");
 		} else {
 
-			listNodes();
+			showNodes();
 			System.out.println();
 
 			System.out.print("Startpunkt: ");
@@ -143,7 +143,7 @@ public class Console implements IUserinterface {
 		}
 	}
 
-	private void subRead() {
+	private void readDialog() {
 		System.out.print("Dateiname eingeben (*.graph): ");
 		String file = scan.nextLine().trim();
 
@@ -157,7 +157,7 @@ public class Console implements IUserinterface {
 		}
 	}
 	
-	private void subWrite() {
+	private void writeDialog() {
 		System.out.print("Dateiname eingeben (*.graph): ");
 		String file = scan.nextLine().trim();
 
@@ -170,7 +170,7 @@ public class Console implements IUserinterface {
 		}
 	}
 	
-	private void subRun() {
+	private void runDialog() {
 		try {
 			this.algorithm.run();
 
@@ -181,7 +181,7 @@ public class Console implements IUserinterface {
 		}
 	}
 
-	private void listResult() {
+	private void showResult() {
 		if (this.AlgRunned) {
 			int result[] = this.algorithm.getResult();
 			System.out.print("Route: - ");
@@ -194,7 +194,7 @@ public class Console implements IUserinterface {
 		}
 	}
 
-	private void listNodes() {
+	private void showNodes() {
 		int[] nodes = this.graph.getAllNodes();
 
 		System.out.println("Vorhandene Städte:");
@@ -203,7 +203,7 @@ public class Console implements IUserinterface {
 		}
 	}
 
-	private void listHelp() {
+	private void showHelp() {
 		System.out.println("h, help \t- Befehle anzeigen");
 		System.out.println("c, config \t- Daten eingeben");
 		System.out.println("run \t- Algorithmus laufen lassen");
