@@ -1,7 +1,6 @@
 package gui;
 
-import gui.IUserinterface;
-import algorithm.DijkstraAlgorithm;
+import algorithm.*;
 
 public class Main {
 

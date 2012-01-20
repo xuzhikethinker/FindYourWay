@@ -23,15 +23,22 @@ public interface IAlgorithm {
 	void setEndNode(int node) throws IllegalArgumentException;
 	
 	/**
-	 * Führt den Algorithmus aus.
+	 * Fï¿½hrt den Algorithmus aus.
 	 */
 	void run() throws IllegalStateException;
 	
 	/**
-	 * Gibt Punkte in ermittelter Reihenfolge zurück
+	 * Gibt Punkte in ermittelter Reihenfolge zurÃ¼ck
 	 * @return
 	 */
 	int[] getResult();
+	
+	/**
+	 * Gibt die Gesamtdistanz zurÃ¼ck
+	 * @return
+	 */
+	
+	int getTotalDistance();
 	
 	/**
 	 * Liefert Start-Knotens.

@@ -284,11 +284,14 @@ public class Console implements IUserinterface {
 	private void showResult() {
 		if (this.AlgRunned) {
 			int result[] = this.algorithm.getResult();
+
 			System.out.print("Route: - ");
 			for (int node : result) {
 				System.out.print(this.graph.getNodeName(node) + " - ");
 			}
 			System.out.println();
+			System.out.println("Distanz: " + this.algorithm.getTotalDistance());
+			
 		} else {
 			System.out.println("Algorithmus ist noch nicht gelaufen.");
 		}
@@ -315,7 +318,7 @@ public class Console implements IUserinterface {
 	private void showMatrix() {
 		for (int i = 0; i < this.graph.getLength(); i++) {
 			for (int j = 0; j < this.graph.getLength(); j++) {
-				System.out.printf("%02d ", this.graph.getDistance(i, j));
+				System.out.printf("%03d ", this.graph.getDistance(i, j));
 			}
 			System.out.println();
 		}

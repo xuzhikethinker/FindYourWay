@@ -99,7 +99,7 @@ public class Graph implements IGraph {
 				tmp = this.getDistance(i, j);
 
 				// Immer zweistellige Zahlen anzeigen
-				writer.write(String.format("%02d", tmp));
+				writer.write(String.format("%03d", tmp));
 				writer.write(" ");
 			}
 			writer.write(System.getProperty("line.separator"));
@@ -134,6 +134,7 @@ public class Graph implements IGraph {
 		int anzahl = 0;
 		String[] Knoten;
 		int i = 0;
+		int dist;
 
 		FileReader fr = new FileReader("./files/" + addFileExt(filename));
 		BufferedReader reader = new BufferedReader(fr);
@@ -148,8 +149,9 @@ public class Graph implements IGraph {
 				if (i < anzahl) {
 					Knoten = neu.split(" ");
 					for (int j = 0; j < Knoten.length; j++) {
-						if (!Knoten[j].equals("00")) {
-							this.setDistance(i, j, Integer.parseInt(Knoten[j]));
+						dist = Integer.parseInt(Knoten[j]);
+						if (dist > 0) {
+							this.setDistance(i, j, dist);
 						}
 					}
 				} else {
