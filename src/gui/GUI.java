@@ -1,66 +1,214 @@
 package gui;
 
+import edu.uci.ics.jung.algorithms.layout.FRLayout;
+import edu.uci.ics.jung.graph.DirectedSparseGraph;
+import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.renderers.Renderer;
+import graph.Graph;
+import graph.IGraph;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.Paint;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
-import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.ListCellRenderer;
 
-import graph.Graph;
+import org.apache.commons.collections15.Transformer;
+
 import algorithm.IAlgorithm;
 
-public class GUI implements IUserinterface {
+public class GUI extends JFrame implements IUserinterface {
 
-	String array[]={"OK","Delete","Start","Finish","Options"};
-	Object Miraculi=JOptionPane.showOptionDialog(null," Willst du das Programm wirklich starten?","FindYourWay ",JOptionPane.DEFAULT_OPTION,JOptionPane.OK_CANCEL_OPTION,null,array,"OK");
 	private IAlgorithm algorithm;
-	String anzahl=JOptionPane.showInputDialog("Geben sie die Anzahl der Städte an","Städtezahl");
-	String namen=JOptionPane.showInputDialog("Geben sie die Städtenamen ein","Städtenamen");
-	String p=JOptionPane.showInputDialog("Bitte geben sie eine Zahl ein!","Startzahl");
-   int a=Integer.parseInt(p);
-   String c=JOptionPane.showInputDialog("Bitte geben sie eine Zahl ein","Endzahl");
-   int z=Integer.parseInt(c);
-   
+	private IGraph graph;
 
 	@Override
 	public void setAlgorithm(IAlgorithm algorithm) {
 		this.algorithm = algorithm;
 	}
 
+	public GUI() {
+		super("-- FindYourWay - Algorithmus --");
+		this.setSize(800, 400);
+		this.setLayout(new FlowLayout());
+		// this.setLocationByPlatform(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
 	@Override
 	public void run() {
 
-		// BEISPIEL:
+		JPanel panel = new JPanel();
 
-		// Diese Daten bitte vorher vom Benutzer abfragen
 		try {
-			this.algorithm.setGraph(new Graph("Deutschland-Metropole.xml"));
+			this.graph = new Graph("Cities.graph");
+			this.algorithm.setGraph(this.graph);
 		} catch (FileNotFoundException e) {
 			// Datei nicht vorhanden?
 		}
 
-		try {
-			this.algorithm.setStartNode(a); // ID von Berlin
-		} catch (IllegalArgumentException e1) {
-			e1.printStackTrace();
-		}
-		
-		try {
-			this.algorithm.setEndNode(z); // ID von M�nchen
-		} catch (IllegalArgumentException e1) {
-			e1.printStackTrace();
+		Integer[] nodes = new Integer[this.graph.getLength()];
+		for (int i = 0; i < this.graph.getLength(); i++) {
+			nodes[i] = new Integer(i);
 		}
 
-		// Algorithmus laufen lassen
-		try {
-			this.algorithm.run();
-		} catch (IllegalStateException e) {
-			// Fehlerbehandlung
+		class ComboBoxRenderer extends JLabel implements ListCellRenderer {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public ComboBoxRenderer() {
+				setOpaque(true);
+				setHorizontalAlignment(CENTER);
+				setVerticalAlignment(CENTER);
+			}
+
+			public Component getListCellRendererComponent(JList list,
+					Object value, int index, boolean isSelected,
+					boolean cellHasFocus) {
+				if (isSelected) {
+					setBackground(list.getSelectionBackground());
+					setForeground(list.getSelectionForeground());
+				} else {
+					setBackground(list.getBackground());
+					setForeground(list.getForeground());
+				}
+
+				setText(graph.getNodeName(index));
+				return this;
+			}
 		}
-		int result[] = this.algorithm.getResult();
 
-		System.out.println("Ergebnis: " + result);
-		JOptionPane.showMessageDialog(null,"Ergebnis:" + result,"Ergebnisse",JOptionPane.DEFAULT_OPTION);
+		JComboBox<Integer> startCombo = new JComboBox<Integer>(nodes);
+		startCombo.setSelectedIndex(0);
+		// startCombo.setRenderer(new ComboBoxRenderer());
+		startCombo.addActionListener(new ActionListener() {
 
-		// BEISPIEL ENDE
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				algorithm.setStartNode((Integer) ((JComboBox<Integer>) e
+						.getSource()).getSelectedItem());
 
+			}
+		});
+		panel.add(startCombo);
+
+		JComboBox<Integer> endCombo = new JComboBox<Integer>(nodes);
+		endCombo.setSelectedIndex(0);
+		// endCombo.setRenderer(new ComboBoxRenderer());
+		endCombo.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				algorithm.setEndNode((Integer) ((JComboBox<Integer>) e
+						.getSource()).getSelectedItem());
+			}
+		});
+		panel.add(endCombo);
+
+		JButton runButton = new JButton("Berechnen");
+		runButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Algorithmus laufen lassen
+				try {
+					algorithm.run();
+					int result[] = algorithm.getResult();
+					showGraph();
+				} catch (IllegalStateException ex) {
+					// Fehlerbehandlung
+					System.out.println("Fehler");
+				}
+
+			}
+		});
+		panel.add(runButton);
+
+		this.getContentPane().add(panel);
+		this.setVisible(true);
 	}
+
+	private void showGraph() {
+
+		DirectedSparseGraph<String, Integer> g = new DirectedSparseGraph<String, Integer>();
+		int[] nodes = this.graph.getAllNodes();
+		g = new DirectedSparseGraph<String, Integer>();
+		int ii = 0;
+
+		// Knoten
+		for (int node : nodes) {
+			g.addVertex("" + node);
+		}
+
+		// Kanten
+		for (int i : nodes) {
+			for (int j : nodes) {
+				if (0 != this.graph.getDistance(i, j)) {
+					g.addEdge(ii++, "" + i, "" + j);
+				}
+			}
+		}
+
+		printGraph(g);
+	}
+
+	private void printGraph(final DirectedSparseGraph<String, Integer> g) {
+
+		FRLayout frLayout = new FRLayout(g);
+		VisualizationViewer vv = new VisualizationViewer(frLayout);
+		vv.setForeground(Color.black);
+		vv.getRenderer().getVertexLabelRenderer()
+				.setPosition(Renderer.VertexLabel.Position.CNTR);
+		vv.getRenderContext().setVertexLabelTransformer(new Transformer<String, String>() {
+			public String transform(String e) {
+				return graph.getNodeName(Integer.parseInt(e));
+			}
+		});
+		vv.getRenderContext().setVertexFillPaintTransformer(
+				new MyVertexFillPaintFunction<String>());
+
+
+//		vv.getRenderContext().setEdgeLabelTransformer(new Transformer<Integer, String>() {
+//			public String transform(Integer e) {
+//				return "Edge: " + e;
+//			}
+//		});
+		this.getContentPane().add(vv);
+		this.pack();
+	}
+
+	public class MyVertexFillPaintFunction<String> implements
+			Transformer<String, Paint> {
+
+		public Paint transform(String v) {
+			int nodeIndex = Integer.parseInt((java.lang.String) v);
+
+			System.out.println(v);
+			if (nodeIndex == GUI.this.algorithm.getStartNode())
+				return Color.GREEN;
+			if (nodeIndex == GUI.this.algorithm.getEndNode())
+				return Color.RED;
+
+			for (int node : GUI.this.algorithm.getResult()) {
+				if (node == nodeIndex) {
+					return Color.YELLOW;
+				}
+			}
+
+			return Color.WHITE;
+		}
+	}
+
 }
