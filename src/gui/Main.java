@@ -8,11 +8,16 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		IUserinterface ui;
 
-		// Console soll als UI genutzt werden
-		IUserinterface ui = new Console();
+		// UI festlegen
+		if (args.length >0 && args[0] == "console") {
+			ui = new Console();
+		} else {
+			ui = new GUI();
+		}
 
-		// Programierer legt Algorithmus fest
+		// Algorithmus setzen
 		ui.setAlgorithm(new DijkstraAlgorithm());
 
 		// UI ausführen
