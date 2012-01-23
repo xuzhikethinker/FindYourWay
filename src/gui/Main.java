@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.Arrays;
+
 import algorithm.*;
 
 public class Main {
@@ -11,15 +13,19 @@ public class Main {
 		IUserinterface ui;
 
 		// UI festlegen
-		if (args.length >0 && args[0] == "console") {
+		if (Arrays.asList(args).contains("console")) {
 			ui = new Console();
 		} else {
 			ui = new GUI();
 		}
 
 		// Algorithmus setzen
-		ui.setAlgorithm(new DijkstraAlgorithm());
-
+		if (Arrays.asList(args).contains("msalgo")) {
+			ui.setAlgorithm(new MsAlgorithm());
+		} else {
+			ui.setAlgorithm(new DijkstraAlgorithm());
+		}
+		
 		// UI ausführen
 		ui.run();
 
