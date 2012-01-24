@@ -11,7 +11,7 @@ public class DijkstraAlgorithm implements IAlgorithm {
 	private boolean besucht[];
 	private int 	weg[];
 	private boolean startNodeChanged;
-	private int		Koten[];
+	private int		Knoten[];
 	
 	{
 		this.startNode 	= -1;
@@ -75,7 +75,7 @@ public class DijkstraAlgorithm implements IAlgorithm {
 		 this.distanz		= new int[graph.getLength()];
 		 this.vorgaenger	= new int[graph.getLength()];
 		 this.besucht		= new boolean[graph.getLength()];
-		 this.Koten			= this.graph.getAllNodes();
+		 this.Knoten			= this.graph.getAllNodes();
 		 
 		 for(int i = 0; i < graph.getLength(); i++){
 			 this.distanz[i]		= -1; // Unendliche Distanz f�r alle Knoten
@@ -113,10 +113,10 @@ public class DijkstraAlgorithm implements IAlgorithm {
 			this.besucht[aktKnoten] = true; // Setzt den aktuellen Knoten auf besucht
 			int max = Integer.MAX_VALUE;
 			
-			for(int h = 0; h < this.Koten.length; h++){
-				 if(this.distanz[this.Koten[h]] < max && !this.besucht[this.Koten[h]] && this.distanz[this.Koten[h]] != -1){	
-					max		 	= this.distanz[this.Koten[h]];
-					aktKnoten 	= this.Koten[h];
+			for(int h = 0; h < this.Knoten.length; h++){
+				 if(this.distanz[this.Knoten[h]] < max && !this.besucht[this.Knoten[h]] && this.distanz[this.Knoten[h]] != -1){	
+					max		 	= this.distanz[this.Knoten[h]];
+					aktKnoten 	= this.Knoten[h];
 				 }
 			}
 			
