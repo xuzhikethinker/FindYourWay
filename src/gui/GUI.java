@@ -10,11 +10,13 @@ import graph.IGraph;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -39,7 +41,8 @@ public class GUI extends JFrame implements IUserinterface {
 
 	public GUI() {
 		super("-- FindYourWay - Algorithmus --");
-		this.setSize(800, 400);
+		this.setSize(800, 600);
+		this.setLocationRelativeTo(null);
 		this.setLayout(new BorderLayout());
 		// this.setLocationByPlatform(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,17 +65,7 @@ public class GUI extends JFrame implements IUserinterface {
 			nodes[i] = new Integer(i);
 		}
 
-		class ComboBoxRenderer extends JLabel implements ListCellRenderer {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			public ComboBoxRenderer() {
-				setOpaque(true);
-				setHorizontalAlignment(CENTER);
-				setVerticalAlignment(CENTER);
-			}
+		class ComboBoxRenderer<T> extends JLabel implements ListCellRenderer<T> {
 
 			public Component getListCellRendererComponent(JList list,
 					Object value, int index, boolean isSelected,
@@ -84,15 +77,19 @@ public class GUI extends JFrame implements IUserinterface {
 					setBackground(list.getBackground());
 					setForeground(list.getForeground());
 				}
-
+				
 				setText(graph.getNodeName(index));
+				setPreferredSize(new Dimension(100, 20));
 				return this;
 			}
 		}
 
+		JLabel startLabel=new JLabel("Start-Punkt: ");
+		panel.add(startLabel);
+		
 		JComboBox<Integer> startCombo = new JComboBox<Integer>(nodes);
 		startCombo.setSelectedIndex(0);
-		// startCombo.setRenderer(new ComboBoxRenderer());
+		startCombo.setRenderer(new ComboBoxRenderer<Integer>());
 		startCombo.addActionListener(new ActionListener() {
 
 			@Override
@@ -103,10 +100,13 @@ public class GUI extends JFrame implements IUserinterface {
 			}
 		});
 		panel.add(startCombo);
-
+		
+		JLabel endLabel=new JLabel("Ziel-Punkt: ");
+		panel.add(endLabel);
+		
 		JComboBox<Integer> endCombo = new JComboBox<Integer>(nodes);
 		endCombo.setSelectedIndex(0);
-		// endCombo.setRenderer(new ComboBoxRenderer());
+		endCombo.setRenderer(new ComboBoxRenderer<Integer>());
 		endCombo.addActionListener(new ActionListener() {
 
 			@Override
@@ -186,7 +186,8 @@ public class GUI extends JFrame implements IUserinterface {
 //			}
 //		});
 		this.add(vv, BorderLayout.CENTER);
-		this.pack();
+		this.setVisible(true);
+		//this.pack();
 	}
 
 	public class MyVertexFillPaintFunction<String> implements
@@ -195,7 +196,6 @@ public class GUI extends JFrame implements IUserinterface {
 		public Paint transform(String v) {
 			int nodeIndex = Integer.parseInt((java.lang.String) v);
 
-			System.out.println(v);
 			if (nodeIndex == GUI.this.algorithm.getStartNode())
 				return Color.GREEN;
 			if (nodeIndex == GUI.this.algorithm.getEndNode())
