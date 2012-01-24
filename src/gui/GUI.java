@@ -7,9 +7,9 @@ import edu.uci.ics.jung.visualization.renderers.Renderer;
 import graph.Graph;
 import graph.IGraph;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.FlowLayout;
 import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,7 +40,7 @@ public class GUI extends JFrame implements IUserinterface {
 	public GUI() {
 		super("-- FindYourWay - Algorithmus --");
 		this.setSize(800, 400);
-		this.setLayout(new FlowLayout());
+		this.setLayout(new BorderLayout());
 		// this.setLocationByPlatform(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -136,7 +136,7 @@ public class GUI extends JFrame implements IUserinterface {
 		});
 		panel.add(runButton);
 
-		this.getContentPane().add(panel);
+		this.add(panel, BorderLayout.NORTH);
 		this.setVisible(true);
 	}
 
@@ -185,7 +185,7 @@ public class GUI extends JFrame implements IUserinterface {
 //				return "Edge: " + e;
 //			}
 //		});
-		this.getContentPane().add(vv);
+		this.add(vv, BorderLayout.CENTER);
 		this.pack();
 	}
 
