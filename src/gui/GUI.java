@@ -1,8 +1,12 @@
 package gui;
 
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
+import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
+import edu.uci.ics.jung.visualization.RenderContext;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.decorators.EdgeShape;
+import edu.uci.ics.jung.visualization.decorators.EdgeShape.CubicCurve;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
 import graph.Graph;
 import graph.IGraph;
@@ -23,16 +27,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.ListCellRenderer;
 
 import org.apache.commons.collections15.Transformer;
 
 import algorithm.IAlgorithm;
 
+@SuppressWarnings("serial")
 public class GUI extends JFrame implements IUserinterface {
 
 	private IAlgorithm algorithm;
 	private IGraph graph;
+
+	private JLabel totalLabel;
 
 	@Override
 	public void setAlgorithm(IAlgorithm algorithm) {
@@ -41,17 +47,17 @@ public class GUI extends JFrame implements IUserinterface {
 
 	public GUI() {
 		super("-- FindYourWay - Algorithmus --");
-		this.setSize(800, 600);
+		this.setSize(1000, 800);
 		this.setLocationRelativeTo(null);
 		this.setLayout(new BorderLayout());
-		// this.setLocationByPlatform(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	@Override
 	public void run() {
 
-		JPanel panel = new JPanel();
+		JPanel northPanel = new JPanel();
+		JPanel southPanel = new JPanel();
 
 		try {
 			this.graph = new Graph("Cities.graph");
@@ -65,11 +71,18 @@ public class GUI extends JFrame implements IUserinterface {
 			nodes[i] = new Integer(i);
 		}
 
-		class ComboBoxRenderer<T> extends JLabel implements ListCellRenderer<T> {
+		class ComboBoxRenderer extends DefaultListCellRenderer {
+			public ComboBoxRenderer() {
+				super();
+				this.setOpaque(true);
+			}
 
 			public Component getListCellRendererComponent(JList list,
 					Object value, int index, boolean isSelected,
 					boolean cellHasFocus) {
+
+				super.getListCellRendererComponent(list, value, index,
+						isSelected, cellHasFocus);
 				if (isSelected) {
 					setBackground(list.getSelectionBackground());
 					setForeground(list.getSelectionForeground());
@@ -77,21 +90,21 @@ public class GUI extends JFrame implements IUserinterface {
 					setBackground(list.getBackground());
 					setForeground(list.getForeground());
 				}
-				
-				setText(graph.getNodeName(index));
+
+				setText(graph.getNodeName(Integer.parseInt(value.toString())));
 				setPreferredSize(new Dimension(100, 20));
 				return this;
 			}
 		}
 
-		JLabel startLabel=new JLabel("Start-Punkt: ");
-		panel.add(startLabel);
-		
+		JLabel startLabel = new JLabel("Start-Punkt: ");
+		northPanel.add(startLabel);
+
 		JComboBox<Integer> startCombo = new JComboBox<Integer>(nodes);
-		startCombo.setSelectedIndex(0);
-		startCombo.setRenderer(new ComboBoxRenderer<Integer>());
+		startCombo.setRenderer(new ComboBoxRenderer());
 		startCombo.addActionListener(new ActionListener() {
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				algorithm.setStartNode((Integer) ((JComboBox<Integer>) e
@@ -99,23 +112,23 @@ public class GUI extends JFrame implements IUserinterface {
 
 			}
 		});
-		panel.add(startCombo);
-		
-		JLabel endLabel=new JLabel("Ziel-Punkt: ");
-		panel.add(endLabel);
-		
+		northPanel.add(startCombo);
+
+		JLabel endLabel = new JLabel("Ziel-Punkt: ");
+		northPanel.add(endLabel);
+
 		JComboBox<Integer> endCombo = new JComboBox<Integer>(nodes);
-		endCombo.setSelectedIndex(0);
-		endCombo.setRenderer(new ComboBoxRenderer<Integer>());
+		endCombo.setRenderer(new ComboBoxRenderer());
 		endCombo.addActionListener(new ActionListener() {
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				algorithm.setEndNode((Integer) ((JComboBox<Integer>) e
 						.getSource()).getSelectedItem());
 			}
 		});
-		panel.add(endCombo);
+		northPanel.add(endCombo);
 
 		JButton runButton = new JButton("Berechnen");
 		runButton.addActionListener(new ActionListener() {
@@ -125,8 +138,11 @@ public class GUI extends JFrame implements IUserinterface {
 				// Algorithmus laufen lassen
 				try {
 					algorithm.run();
-					int result[] = algorithm.getResult();
+					// int result[] = algorithm.getResult();
 					showGraph();
+					totalLabel.setText("Gesamtstrecke: "
+							+ algorithm.getTotalDistance() + " km");
+
 				} catch (IllegalStateException ex) {
 					// Fehlerbehandlung
 					System.out.println("Fehler");
@@ -134,29 +150,34 @@ public class GUI extends JFrame implements IUserinterface {
 
 			}
 		});
-		panel.add(runButton);
+		northPanel.add(runButton);
 
-		this.add(panel, BorderLayout.NORTH);
+		totalLabel = new JLabel("Gesamtstrecke: - km");
+		southPanel.add(totalLabel);
+
+		this.add(northPanel, BorderLayout.NORTH);
+		this.add(southPanel, BorderLayout.SOUTH);
 		this.setVisible(true);
 	}
 
 	private void showGraph() {
 
-		DirectedSparseGraph<String, Integer> g = new DirectedSparseGraph<String, Integer>();
-		int[] nodes = this.graph.getAllNodes();
-		g = new DirectedSparseGraph<String, Integer>();
+		DirectedSparseGraph<Integer, Integer> g = new DirectedSparseGraph<Integer, Integer>();
+		g = new DirectedSparseGraph<Integer, Integer>();
 		int ii = 0;
+
+		int[] nodes = this.graph.getAllNodes();
 
 		// Knoten
 		for (int node : nodes) {
-			g.addVertex("" + node);
+			g.addVertex(node);
 		}
 
 		// Kanten
 		for (int i : nodes) {
 			for (int j : nodes) {
-				if (0 != this.graph.getDistance(i, j)) {
-					g.addEdge(ii++, "" + i, "" + j);
+				if (i<j && 0 != this.graph.getDistance(i, j)) {
+					g.addEdge(ii++, i, j);
 				}
 			}
 		}
@@ -164,51 +185,71 @@ public class GUI extends JFrame implements IUserinterface {
 		printGraph(g);
 	}
 
-	private void printGraph(final DirectedSparseGraph<String, Integer> g) {
+	private void printGraph(final DirectedSparseGraph<Integer, Integer> g) {
 
-		FRLayout frLayout = new FRLayout(g);
-		VisualizationViewer vv = new VisualizationViewer(frLayout);
+		FRLayout<Integer, Integer> frLayout = new FRLayout<Integer, Integer>(g);
+		VisualizationViewer<Integer, Integer> vv = new VisualizationViewer<Integer, Integer>(
+				frLayout);
 		vv.setForeground(Color.black);
 		vv.getRenderer().getVertexLabelRenderer()
 				.setPosition(Renderer.VertexLabel.Position.CNTR);
-		vv.getRenderContext().setVertexLabelTransformer(new Transformer<String, String>() {
-			public String transform(String e) {
-				return graph.getNodeName(Integer.parseInt(e));
-			}
-		});
+
+		// Knoten-Bezeichnung
+		vv.getRenderContext().setVertexLabelTransformer(
+				new Transformer<Integer, String>() {
+					public String transform(Integer e) {
+						return graph.getNodeName(e);
+					}
+				});
+
+		// Knoten-Farbe
 		vv.getRenderContext().setVertexFillPaintTransformer(
-				new MyVertexFillPaintFunction<String>());
+				new Transformer<Integer, Paint>() {
 
+					public Paint transform(Integer nodeIndex) {
+						if (nodeIndex == GUI.this.algorithm.getStartNode())
+							return Color.GREEN;
+						if (nodeIndex == GUI.this.algorithm.getEndNode())
+							return Color.RED;
 
-//		vv.getRenderContext().setEdgeLabelTransformer(new Transformer<Integer, String>() {
-//			public String transform(Integer e) {
-//				return "Edge: " + e;
-//			}
-//		});
-		this.add(vv, BorderLayout.CENTER);
+						for (int node : GUI.this.algorithm.getResult()) {
+							if (node == nodeIndex) {
+								return Color.YELLOW;
+							}
+						}
+
+						return Color.WHITE;
+					}
+				});
+
+		// Kanten-Bezeichnung
+		vv.getRenderContext().setEdgeLabelTransformer(
+				new Transformer<Integer, String>() {
+					public String transform(Integer e) {
+						int[] nodes = graph.getAllNodes();
+						int ii = 0;
+						for (int i : nodes) {
+							for (int j : nodes) {
+								if (i<j && 0 != graph.getDistance(i, j)) {
+									if (e == ii) {
+										return "" + graph.getDistance(i, j)
+												+ " km";
+									}
+									ii++;
+								}
+							}
+						}
+						return "";
+					}
+				});
+
+		// In Layout einbinden
+		JPanel centerPanel = new JPanel();
+		centerPanel.add(vv);
+
+		this.add(centerPanel, BorderLayout.CENTER);
 		this.setVisible(true);
-		//this.pack();
-	}
-
-	public class MyVertexFillPaintFunction<String> implements
-			Transformer<String, Paint> {
-
-		public Paint transform(String v) {
-			int nodeIndex = Integer.parseInt((java.lang.String) v);
-
-			if (nodeIndex == GUI.this.algorithm.getStartNode())
-				return Color.GREEN;
-			if (nodeIndex == GUI.this.algorithm.getEndNode())
-				return Color.RED;
-
-			for (int node : GUI.this.algorithm.getResult()) {
-				if (node == nodeIndex) {
-					return Color.YELLOW;
-				}
-			}
-
-			return Color.WHITE;
-		}
+		// this.pack();
 	}
 
 }
