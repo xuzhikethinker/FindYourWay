@@ -1,12 +1,8 @@
 package gui;
 
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
-import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
-import edu.uci.ics.jung.visualization.RenderContext;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
-import edu.uci.ics.jung.visualization.decorators.EdgeShape;
-import edu.uci.ics.jung.visualization.decorators.EdgeShape.CubicCurve;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
 import graph.Graph;
 import graph.IGraph;
@@ -26,6 +22,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.apache.commons.collections15.Transformer;
@@ -59,12 +56,20 @@ public class GUI extends JFrame implements IUserinterface {
 		JPanel northPanel = new JPanel();
 		JPanel southPanel = new JPanel();
 
-		try {
-			this.graph = new Graph("Cities.graph");
-			this.algorithm.setGraph(this.graph);
-		} catch (FileNotFoundException e) {
-			// Datei nicht vorhanden?
-		}
+		do {
+			String fileName = JOptionPane
+					.showInputDialog("Bitte Dateinamen eingeben");
+
+			if (fileName == null) {
+				System.exit(0);
+			}
+			try {
+				this.graph = new Graph(fileName);
+				this.algorithm.setGraph(this.graph);
+			} catch (FileNotFoundException e) {
+				// Datei nicht vorhanden?
+			}
+		} while (this.graph == null);
 
 		Integer[] nodes = new Integer[this.graph.getLength()];
 		for (int i = 0; i < this.graph.getLength(); i++) {
@@ -176,7 +181,7 @@ public class GUI extends JFrame implements IUserinterface {
 		// Kanten
 		for (int i : nodes) {
 			for (int j : nodes) {
-				if (i<j && 0 != this.graph.getDistance(i, j)) {
+				if (i < j && 0 != this.graph.getDistance(i, j)) {
 					g.addEdge(ii++, i, j);
 				}
 			}
@@ -230,7 +235,7 @@ public class GUI extends JFrame implements IUserinterface {
 						int ii = 0;
 						for (int i : nodes) {
 							for (int j : nodes) {
-								if (i<j && 0 != graph.getDistance(i, j)) {
+								if (i < j && 0 != graph.getDistance(i, j)) {
 									if (e == ii) {
 										return "" + graph.getDistance(i, j)
 												+ " km";
