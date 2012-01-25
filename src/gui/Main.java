@@ -22,6 +22,8 @@ public class Main {
 		// Algorithmus setzen
 		if (Arrays.asList(args).contains("msalgo")) {
 			ui.setAlgorithm(new MsAlgorithm());
+		} else if (Arrays.asList(args).contains("djalgo")) {
+			ui.setAlgorithm(new DjAlgo());
 		} else {
 			ui.setAlgorithm(new DijkstraAlgorithm());
 		}
