@@ -12,8 +12,8 @@ public class _AllTest {
 
 	@Test
 	public void testRun() {
-		int start 	= 3;
-		int end 	= 8;
+		int start 	= 1;
+		int end 	= 12;
 		long time 	= 0;
 		
 		
