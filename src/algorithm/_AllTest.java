@@ -12,8 +12,8 @@ public class _AllTest {
 
 	@Test
 	public void testRun() {
-		int start 	= 1;
-		int end 	= 12;
+		int start 	= 3;
+		int end 	= 22;
 		long time 	= 0;
 		
 		
@@ -24,7 +24,7 @@ public class _AllTest {
 		IGraph graph;
 		
 		try {
-			graph=new Graph("Cities.graph");
+			graph=new Graph("Big.graph");
 			msAlgo.setGraph(graph);
 			dkAlgo.setGraph(graph);
 			djAlgo.setGraph(graph);
