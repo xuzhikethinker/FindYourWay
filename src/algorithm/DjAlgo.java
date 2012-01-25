@@ -12,7 +12,9 @@ public class DjAlgo implements IAlgorithm {
 	
 	@Override
 	public void setGraph(IGraph graph) {
-		this.graph = graph;
+		this.graph 		= graph;
+		this.startNode 	= -1;
+		this.endNode 	= -1;
 	}
 
 	@Override

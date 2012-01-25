@@ -75,7 +75,7 @@ public class DijkstraAlgorithm implements IAlgorithm {
 		 this.distanz		= new int[graph.getLength()];
 		 this.vorgaenger	= new int[graph.getLength()];
 		 this.besucht		= new boolean[graph.getLength()];
-		 this.Knoten			= this.graph.getAllNodes();
+		 this.Knoten		= this.graph.getAllNodes();
 		 
 		 for(int i = 0; i < graph.getLength(); i++){
 			 this.distanz[i]		= -1; // Unendliche Distanz f�r alle Knoten
@@ -96,16 +96,16 @@ public class DijkstraAlgorithm implements IAlgorithm {
 			aktNachbarn = this.graph.getNeighbors(aktKnoten);
 			
 			// F�r alle Nachbarn
-			for(int j = 0; j < aktNachbarn.length; j++){
+			for(int nachbar : aktNachbarn){
 				
 				// Wenn der benachbarte Knoten noch keine Distanz gesetzt bekommen hat bzw. eine hoehere Distanz hat als die gerade berechnete Distanz
-				if(this.distanz[aktNachbarn[j]] == -1 || this.distanz[aktNachbarn[j]] > this.graph.getDistance(aktKnoten, aktNachbarn[j]) + this.distanz[aktKnoten]){
+				if(this.distanz[nachbar] == -1 || this.distanz[nachbar] > this.graph.getDistance(aktKnoten, nachbar) + this.distanz[aktKnoten]){
 					
 					// Setzt die Distanz des Nachbarn auf die Distanz zwischen aktuellem Knoten und dem Nachbar plus der aktullen Distanz des Knoten
-					this.distanz[aktNachbarn[j]] = this.distanz[aktKnoten] + this.graph.getDistance(aktKnoten, aktNachbarn[j]);	
+					this.distanz[nachbar] = this.distanz[aktKnoten] + this.graph.getDistance(aktKnoten, nachbar);	
 					
 					// Der Vorg�nger des Nachbarn wird auf den aktuellen Knoten gesetzt
-					this.vorgaenger[aktNachbarn[j]] = aktKnoten;
+					this.vorgaenger[nachbar] = aktKnoten;
 				}
 					
 			}
