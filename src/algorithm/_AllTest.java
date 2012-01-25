@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 
 import org.junit.Test;
 
-public class MsAlgorithmTest {
+public class _AllTest {
 
 	@Test
 	public void testRun() {
