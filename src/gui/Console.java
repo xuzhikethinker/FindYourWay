@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import algorithm.IAlgorithm;
-
+/**
+ * @author Marco S.
+ */
 public class Console implements IUserinterface {
 
 	private IAlgorithm algorithm;

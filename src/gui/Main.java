@@ -3,7 +3,9 @@ package gui;
 import java.util.Arrays;
 
 import algorithm.*;
-
+/**
+ * @author Marco S.
+ */
 public class Main {
 
 	/**
