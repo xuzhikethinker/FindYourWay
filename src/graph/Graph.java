@@ -6,7 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
+/**
+ * @author Marco S.
+ * @author Phillip T.
+ * @author Moritz M.
+ */
 public class Graph implements IGraph {
 
 	private int matrix[][];

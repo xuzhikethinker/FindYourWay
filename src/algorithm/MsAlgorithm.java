@@ -1,7 +1,9 @@
 package algorithm;
 
 import graph.IGraph;
-
+/**
+ * @author Marco S.
+ */
 public class MsAlgorithm implements IAlgorithm {
 	private int startNode=-1;
 	private int endNode=-1;
