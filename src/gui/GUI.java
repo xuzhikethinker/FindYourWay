@@ -31,9 +31,10 @@ import algorithm.IAlgorithm;
 /**
  * @author Marco S.
  */
-@SuppressWarnings("serial")
-public class GUI extends JFrame implements IUserinterface {
 
+public class GUI extends JFrame implements IUserinterface {
+	private static final long serialVersionUID = 1L;
+	
 	private IAlgorithm algorithm;
 	private IGraph graph;
 
@@ -79,6 +80,8 @@ public class GUI extends JFrame implements IUserinterface {
 		}
 
 		class ComboBoxRenderer extends DefaultListCellRenderer {
+			private static final long serialVersionUID = 1L;
+
 			public ComboBoxRenderer() {
 				super();
 				this.setOpaque(true);

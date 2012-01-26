@@ -23,7 +23,7 @@ public interface IAlgorithm {
 	void setEndNode(int node) throws IllegalArgumentException;
 	
 	/**
-	 * F�hrt den Algorithmus aus.
+	 * Führt den Algorithmus aus.
 	 */
 	void run() throws IllegalStateException;
 	

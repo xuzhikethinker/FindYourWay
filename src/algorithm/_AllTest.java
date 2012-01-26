@@ -7,7 +7,10 @@ import graph.IGraph;
 import java.io.FileNotFoundException;
 
 import org.junit.Test;
-
+/**
+ * @author Marco S.
+ * @author Moritz M. 
+ */
 public class _AllTest {
 
 	@Test
