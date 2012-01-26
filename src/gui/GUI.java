@@ -28,7 +28,9 @@ import javax.swing.JPanel;
 import org.apache.commons.collections15.Transformer;
 
 import algorithm.IAlgorithm;
-
+/**
+ * @author Marco S.
+ */
 @SuppressWarnings("serial")
 public class GUI extends JFrame implements IUserinterface {
 

@@ -9,8 +9,7 @@ import java.util.Scanner;
 
 import algorithm.IAlgorithm;
 /**
- * @author Phillip Trusheim
- * @author Moritz Münch
+ * @author Marco S.
  */
 public class Console implements IUserinterface {
 

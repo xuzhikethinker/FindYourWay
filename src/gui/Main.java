@@ -5,6 +5,7 @@ import java.util.Arrays;
 import algorithm.*;
 /**
  * @author Moritz M.
+ * @author Marco S.
  */
 public class Main {
 
