@@ -83,13 +83,14 @@ public class GUI extends JFrame implements IUserinterface {
 				super();
 				this.setOpaque(true);
 			}
-
-			public Component getListCellRendererComponent(JList list,
+			
+			public Component getListCellRendererComponent(JList<?> list,
 					Object value, int index, boolean isSelected,
 					boolean cellHasFocus) {
 
 				super.getListCellRendererComponent(list, value, index,
 						isSelected, cellHasFocus);
+
 				if (isSelected) {
 					setBackground(list.getSelectionBackground());
 					setForeground(list.getSelectionForeground());

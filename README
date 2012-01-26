@@ -1,15 +1,24 @@
 FindYourWay
 
+
 Requirements:
-JUNG2-Framework - http://jung.sourceforge.net/
-Java Runtime Environment (JRE) 7 - http://www.oracle.com/technetwork/java/javase/downloads/
+
+JUNG2-Framework
+http://jung.sourceforge.net/
+
+Java Runtime Environment (JRE) 7
+http://www.oracle.com/technetwork/java/javase/downloads/
+
 
 Authors:
+
 Marco S. (marcomspp)
 Moritz M. (momue)
 Phillip T. (phillipTr)
 Marcel N. (aquanar)
 
+
 Contributors:
+
 Fabian M. (fate83)
 - (fxbrk) 
