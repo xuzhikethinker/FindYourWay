@@ -2,7 +2,9 @@ package algorithm;
 
 import java.util.ArrayList;
 import graph.IGraph;
-
+/**
+ * @author Moritz M.
+ */
 public class DjAlgo implements IAlgorithm {
 	private int 	startNode;
 	private int 	endNode;

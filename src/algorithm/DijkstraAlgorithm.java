@@ -1,7 +1,10 @@
 package algorithm;
 
 import graph.IGraph;
-
+/**
+ * @author Phillip T. 
+ * @author Moritz M. 
+ */
 public class DijkstraAlgorithm implements IAlgorithm {
 	private int 	startNode;
 	private int 	endNode;
@@ -91,11 +94,11 @@ public class DijkstraAlgorithm implements IAlgorithm {
 		int aktKnoten = this.startNode; //Knoten mit dem begonnen wird
 		int[] aktNachbarn; //Nachbarn des zu bearbeitenden Knoten
 		
-		// F�r alle Knoten im Graph
+		// Für alle Knoten im Graph
 		for(int i = 0; i < this.graph.getLength(); i++){
 			aktNachbarn = this.graph.getNeighbors(aktKnoten);
 			
-			// F�r alle Nachbarn
+			// Für alle Nachbarn
 			for(int nachbar : aktNachbarn){
 				
 				// Wenn der benachbarte Knoten noch keine Distanz gesetzt bekommen hat bzw. eine hoehere Distanz hat als die gerade berechnete Distanz
@@ -104,7 +107,7 @@ public class DijkstraAlgorithm implements IAlgorithm {
 					// Setzt die Distanz des Nachbarn auf die Distanz zwischen aktuellem Knoten und dem Nachbar plus der aktullen Distanz des Knoten
 					this.distanz[nachbar] = this.distanz[aktKnoten] + this.graph.getDistance(aktKnoten, nachbar);	
 					
-					// Der Vorg�nger des Nachbarn wird auf den aktuellen Knoten gesetzt
+					// Der Vorgänger des Nachbarn wird auf den aktuellen Knoten gesetzt
 					this.vorgaenger[nachbar] = aktKnoten;
 				}
 					
